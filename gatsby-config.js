@@ -9,6 +9,7 @@ module.exports = {
     title: `air pussies`,
   },
   plugins: [
+    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -18,6 +19,9 @@ module.exports = {
     },
     `gatsby-plugin-emotion`,
     `gatsby-transformer-remark`,
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
+    `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-typography`,
       options: {
