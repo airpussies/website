@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[6],{hony:function(t,n,e){"use strict";e.r(n),e.d(n,"default",(function(){return a})),e.d(n,"query",(function(){return c}));e("q1tI");var r=e("Bl7J"),u=e("qKvR");function a(t){var n=t.data;return Object(u.b)(r.a,null,Object(u.b)("h1",{className:"title is-1"},"Turnierberichte"),n.allMarkdownRemark.distinct.map((function(t,n){return Object(u.b)("tr",{key:n},Object(u.b)("td",null,t))})))}var c="2913152258"}}]);
+//# sourceMappingURL=component---src-pages-turnierberichte-js-0a321a00e096fd4be61a.js.map

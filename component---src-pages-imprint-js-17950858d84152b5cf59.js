@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{IoOV:function(e,t,n){"use strict";n.r(t),n.d(t,"default",(function(){return b}));n("q1tI");var u=n("qKvR");function r(e){return Object(u.b)("h1",null,e.header_text)}function b(){return Object(u.b)("div",null,Object(u.b)(r,{header_text:"Impressum"}),Object(u.b)("p",null,"This needs to be added."))}}}]);
+//# sourceMappingURL=component---src-pages-imprint-js-17950858d84152b5cf59.js.map
