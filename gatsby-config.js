@@ -12,15 +12,15 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-source-contentful`,
       options: {
-        name: `src`,
-        path: `${__dirname}/src/`,
-      },
+        spaceId: `f8cmlwci71xg`,
+        // Learn about environment variables: https://gatsby.dev/env-vars
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        downloadLocal: true
+      }
     },
-    `gatsby-plugin-emotion`,
     `gatsby-transformer-remark`,
-    'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     `gatsby-plugin-sass`,
     {

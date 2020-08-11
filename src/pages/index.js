@@ -1,11 +1,9 @@
 import React from "react"
 import Layout from "../components/layout";
-import {graphql, Link} from "gatsby"
+import {Link} from "gatsby"
 import team from "../../static/team.jpg"
-import {rhythm} from "../utils/typography"
-import {css} from "@emotion/core"
 
-export default function Home({data}) {
+export default function Home() {
     return (
         <Layout>
             <div className="content">
@@ -75,61 +73,8 @@ export default function Home({data}) {
                 </ul>
             </div>
 
-            <h3 className="title is-3">{data.allMarkdownRemark.totalCount} Turnierberichte</h3>
-            <div className="tile is-ancestor">
-                <div className="tile is-parent wrapped">
-                    {data.allMarkdownRemark.edges.map(({node}) => (
-                        <div className="tile is-child box is-4" key={node.id}>
-                            <Link
-                                to={node.fields.slug}
-                                css={css`
-                            text-decoration: none;
-                            color: inherit;
-                        `}
-                            >
-                                <h4
-                                    css={css`
-                            margin-bottom: ${rhythm(1 / 4)};
-                            `}
-                                >
-                                    {node.frontmatter.title}{" "}
-                                    <span
-                                        css={css`
-                                  color: #bbb;
-                                `}
-                                    >
-                                - {node.frontmatter.date}
-                            </span>
-                                </h4>
-                                <p>{node.excerpt}</p>
-                            </Link>
-                        </div>
-                    ))}
-
-                </div>
-            </div>
+            <h3 className="title is-3">Turnierberichte</h3>
 
         </Layout>
     )
 }
-
-export const query = graphql`
-query {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-        totalCount
-        edges {
-            node {
-                id
-                excerpt
-                frontmatter {
-                    title
-                    date(formatString: "DD MMMM, YYYY")
-                }
-                fields {
-                    slug
-                }
-            }
-        }
-    }
-}
-`
