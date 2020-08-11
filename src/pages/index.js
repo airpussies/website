@@ -1,16 +1,16 @@
 import React from "react"
-import {Link} from "gatsby"
 import Layout from "../components/layout";
+import {graphql, Link} from "gatsby"
+import team from "../../static/team.jpg"
 import {rhythm} from "../utils/typography"
 import {css} from "@emotion/core"
-import "../components/layout.scss"
-
 
 export default function Home({data}) {
     return (
         <Layout>
             <div className="content">
                 <h1 className="title is-1">Willkommen bei den air pussies</h1>
+                <img src={team} alt="Teamfoto"/>
                 <p className="content">Die air pussies sind ein Ultimate-Frisbee-Team aus Berlin-Wedding.
                     Unsere Heimat ist die
                     Frisbee-Abteilung des <a href="http://tsv-wedding.de">TSV Berlin-Wedding 1862 e.V.</a>.
@@ -37,7 +37,7 @@ export default function Home({data}) {
             <div className="content">
                 <h2 className="subtitle is-2">Webseite und Kontakt</h2>
                 <ul>
-                    <li>die air pussies bei facebook: https://de-de.facebook.com/airpussie/</li>
+                    <li>die air pussies <Link to="https://de-de.facebook.com/airpussie/">bei facebook</Link></li>
                     <li>Bei Fragen zum Team oder zu Ultimate (in Berlin) könnt ihr euch gerne per Mail an smorg /at/
                         posteo.de wenden.
                     </li>
@@ -51,7 +51,7 @@ export default function Home({data}) {
             </div>
 
             <div className="content">
-                <h2 className="subtitle is-2"> for english speaking guests</h2>
+                <h2 className="subtitle is-2">For english speaking guests <span role="img">🇬🇧</span></h2>
 
                 <ul>
                     <li>we are a mixed ultimate team</li>
@@ -77,61 +77,59 @@ export default function Home({data}) {
 
             <h3 className="title is-3">{data.allMarkdownRemark.totalCount} Turnierberichte</h3>
             <div className="tile is-ancestor">
-                {data.allMarkdownRemark.edges.map(({node}) => (
-                    <div className="tile is-child box" key={node.id}>
-                        <Link
-                            to={node.fields.slug}
-                            css={css`
+                <div className="tile is-parent wrapped">
+                    {data.allMarkdownRemark.edges.map(({node}) => (
+                        <div className="tile is-child box is-4" key={node.id}>
+                            <Link
+                                to={node.fields.slug}
+                                css={css`
                             text-decoration: none;
                             color: inherit;
                         `}
-                        >
-                            <h4
-                                css={css`
+                            >
+                                <h4
+                                    css={css`
                             margin-bottom: ${rhythm(1 / 4)};
                             `}
-                            >
-                                {node.frontmatter.title}{" "}
-                                <span
-                                    css={css`
+                                >
+                                    {node.frontmatter.title}{" "}
+                                    <span
+                                        css={css`
                                   color: #bbb;
                                 `}
-                                >
+                                    >
                                 - {node.frontmatter.date}
                             </span>
-                            </h4>
-                            <p>{node.excerpt}</p>
-                        </Link>
-                    </div>
-                ))}
+                                </h4>
+                                <p>{node.excerpt}</p>
+                            </Link>
+                        </div>
+                    ))}
 
+                </div>
             </div>
+
         </Layout>
     )
 }
 
 export const query = graphql`
 query {
-site {
-siteMetadata {
-title
-}
-}
-allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-totalCount
-edges {
-node {
-id
-frontmatter {
-title
-date(formatString: "DD MMMM, YYYY")
-}
-fields {
-slug
-}
-excerpt
-}
-}
-}
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+        totalCount
+        edges {
+            node {
+                id
+                excerpt
+                frontmatter {
+                    title
+                    date(formatString: "DD MMMM, YYYY")
+                }
+                fields {
+                    slug
+                }
+            }
+        }
+    }
 }
 `

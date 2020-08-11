@@ -1,6 +1,7 @@
 ---
 title: "Beach Ultimate Mitte 2020"
 date: "2020-01-20"
+year: 2020
 ---
 
 # BUM 2020

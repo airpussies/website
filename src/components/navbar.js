@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import logo from '../images/airpussies-logo.jpg'
+import logo from '../../static/disc.jpg'
 import { Helmet } from 'react-helmet'
 
 const NavbarItem = props => (
@@ -34,7 +34,8 @@ export default class Navbar extends React.Component {
                 <div className="container">
                     <div className="navbar-brand">
                         <Link className="navbar-item" to="/">
-                            <img src={logo} alt="logo" />
+                            <img src={logo} height="28" width="28" alt="logo" style={{ marginBottom: '0' }} />
+                            &nbsp;<span className="is-4">air pussies online</span>
                         </Link>
                         <NavbarBurger
                             active={this.state.activeMenu}
@@ -48,8 +49,8 @@ export default class Navbar extends React.Component {
                             <NavbarItem page="/" pagename="Home" />
                             <NavbarItem page="/turnierberichte/" pagename="Turniere" />
                             <NavbarItem page="/turnierberichte/" pagename="Berichte" />
-                            <NavbarItem page="/turnierberichte/" pagename="Links" />
-                            <NavbarItem page="/turnierberichte/" pagename="Literatur" />
+                            <NavbarItem page="/links/" pagename="Links" />
+                            <NavbarItem page="/was_ist_ultimate/" pagename="Was ist Ultimate Frisbee" />
                             <NavbarItem page="/turnierberichte/" pagename=".ber Ultimate" />
                         </div>
                     </div>

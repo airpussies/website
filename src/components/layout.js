@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StaticQuery, graphql } from 'gatsby'
-
+import {graphql, StaticQuery} from 'gatsby'
 import Header from './header'
 import './layout.scss'
 import Footer from "./footer";
 
-const Layout = ({ children }) => (
+const Layout = ({children}) => (
     <StaticQuery
         query={graphql`
       query SiteTitleQuery {
@@ -19,7 +18,7 @@ const Layout = ({ children }) => (
     `}
         render={data => (
             <>
-                <Header siteTitle={data.site.siteMetadata.title} />
+                <Header siteTitle={data.site.siteMetadata.title}/>
                 <section className="section">
                     <div className="container">
                         {children}

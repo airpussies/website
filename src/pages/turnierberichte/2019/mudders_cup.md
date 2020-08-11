@@ -1,9 +1,10 @@
 ---
-title: "Paradisco 2020"
-date: "2020-01-20"
+title: "Mudders Cup 2019"
+date: "2019-01-20"
+year: 2019
 ---
 
-# Paradisco 2020
+# Mudders Cup 2019
 
 ## Level 1.0
 

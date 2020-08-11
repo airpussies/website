@@ -1,6 +1,7 @@
 ---
 title: "Marximal 2020"
 date: "2020-04-20"
+year: 2020
 ---
 
 # Marximal 2020
