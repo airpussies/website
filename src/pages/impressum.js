@@ -6,7 +6,7 @@ import DefaultPage from "../components/defaultPage";
 export default function Home({data}) {
     return (
         <Layout>
-            <DefaultPage data={data}/>
+            <DefaultPage data={data} />
         </Layout>
     )
 }
@@ -19,7 +19,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    contentfulPages(slug: { eq: "home" }) {
+    contentfulPages(slug: { eq: "imprint" }) {
       headline
       publicationDate(formatString: "MMMM Do, YYYY")
       teaser {

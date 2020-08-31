@@ -7,11 +7,10 @@ import get from "lodash/get"
 class NewsTemplate extends React.Component {
     render() {
         const news = get(this.props, 'data.contentfulNews')
-        // const siteTitle = get(this.props, 'data.site.siteMetadata.title')
 
         return (
             <Layout>
-                <h1 className="is-1 title">{news.headline}</h1>
+                <h1 className="is-1 title">News: {news.headline}</h1>
 
                 <Img alt={news.headline}
                      fluid={news.teaser.fluid}

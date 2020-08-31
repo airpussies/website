@@ -1,7 +1,7 @@
 import {Link} from 'gatsby'
 import React from 'react'
 
-const Footer = ({siteTitle}) => (
+const Footer = () => (
     <footer className="footer">
         <div className="container">
             <div className="content has-text-centered">
