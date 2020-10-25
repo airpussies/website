@@ -1,41 +1,74 @@
-const Promise = require('bluebird')
+const _ = require(`lodash`)
 const path = require('path')
+const {slash} = require(`gatsby-core-utils`)
 
 exports.createPages = ({graphql, actions}) => {
-    const {createPage} = actions
+  const {createPage} = actions
 
-    return new Promise((resolve, reject) => {
-        const news = path.resolve('./src/templates/news.js')
-        resolve(
-            graphql(`
-                {
-                  allContentfulNews {
-                    edges {
-                      node {
-                        headline
-                        slug
-                      }
-                    }
-                  }
-                }
-            `
-            ).then(result => {
-                if (result.errors) {
-                    console.log(result.errors)
-                    reject(result.errors)
-                }
+  return graphql(
+    `
+      {
+        allContentfulNews {
+          edges {
+            node {
+              year
+              slug
+            }
+          }
+        }
+      }
+    `
+  )
+    .then(result => {
+      if (result.errors) {
+        console.log(result.errors)
+        throw result.errors
+      }
 
-                const posts = result.data.allContentfulNews.edges
-                posts.forEach((post, index) => {
-                    createPage({
-                        path: `/news/${post.node.slug}/`,
-                        component: news,
-                        context: {
-                            slug: post.node.slug
-                        },
-                    })
-                })
+      const newsTemplate = path.resolve('./src/templates/news.js')
+
+      _.each(result.data.allContentfulNews.edges, edge => {
+        console.log(`createPage(news, ${edge.node.year}/${edge.node.slug})`)
+        createPage({
+          path: `/news/${edge.node.year}/${edge.node.slug}/`,
+          component: slash(newsTemplate),
+          context: {
+            slug: edge.node.slug
+          },
+        })
+      })
+    })
+    .then(() => {
+      graphql(`
+      {
+        allContentfulTurnierbericht {
+          edges {
+            node {
+              slug
+              date(formatString: "Y")
+            }
+          }
+        }
+      }
+`)
+        .then(result => {
+          if (result.errors) {
+            console.log(result.errors)
+            throw result.errors
+          }
+
+          const newsTemplate = path.resolve('./src/templates/report.js')
+
+          _.each(result.data.allContentfulTurnierbericht.edges, edge => {
+            console.log(`createPage(report, ${edge.node.date}/${edge.node.slug})`)
+            createPage({
+              path: `/turnierberichte/${edge.node.date}/${edge.node.slug}/`,
+              component: slash(newsTemplate),
+              context: {
+                slug: edge.node.slug
+              },
             })
-        )
+          })
+        })
     })
 }
