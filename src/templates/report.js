@@ -24,10 +24,10 @@ class ReportTemplate extends React.Component {
     } = news
 
     let maybeReport;
-    if (report !== null && report.childMarkdownRemark.html !== '') {
+    if (null !== report && null !== report.childMarkdownRemark && null !== report.childMarkdownRemark.html && report.childMarkdownRemark.html !== '') {
       maybeReport = <div>
         <h2 className="subtitle is-2">Turnierberichte</h2>
-        <div dangerouslySetInnerHTML={{__html: report.childMarkdownRemark.html.replaceAll('h1','h3')}}/>
+        <div dangerouslySetInnerHTML={{__html: report.childMarkdownRemark.html}}/>
       </div>;
     }
     let maybeDescription;

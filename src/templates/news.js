@@ -17,20 +17,37 @@ class NewsTemplate extends React.Component {
       headline,
       teaser,
       publicationDate,
-      body
+      body,
+      author
     } = news;
 
     let maybeTeaser;
     if (teaser !== null) {
-      maybeTeaser = <Img alt={headline} fluid={teaser.fluid}/>;
+      const {
+        fluid,
+        title,
+        description
+      } = teaser;
+      maybeTeaser = <figure className={"image"}>
+        <Img alt={headline} fluid={fluid}/>
+        <figcaption><em>{title}</em> — {description}</figcaption>
+      </figure>;
     }
+
+    const formattedDate = new Intl.DateTimeFormat('de', {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit'
+    }).format(new Date(publicationDate))
+
     return (
 
       <Layout>
         <h1 className="is-1 title">{headline}</h1>
-        {maybeTeaser}
+        <label className={"label"}>von {author}, {formattedDate}</label>
         <div className="wrapper">
-          <p style={{display: 'block'}}>{publicationDate}</p>
+
+          {maybeTeaser}
           <div dangerouslySetInnerHTML={{__html: body.childMarkdownRemark.html}}/>
         </div>
 
@@ -51,11 +68,14 @@ export const pageQuery = graphql`
     }
     contentfulNews(slug: { eq: $slug }) {
       headline
-      publicationDate(formatString: "DD.MM.YYYY")
+      author
+      publicationDate
       teaser {
         fluid(maxWidth: 1180, background: "rgb:000000") {
           ...GatsbyContentfulFluid_tracedSVG
         }
+        description
+        title
       }
       body {
         childMarkdownRemark {

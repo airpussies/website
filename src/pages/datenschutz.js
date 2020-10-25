@@ -4,7 +4,6 @@ import {graphql} from "gatsby"
 import DefaultPage from "../components/defaultPage";
 
 export default function Home({data}) {
-    console.log("privacy" + JSON.stringify(data));
     return (
         <Layout>
             <DefaultPage data={data}/>

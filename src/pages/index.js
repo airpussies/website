@@ -18,7 +18,6 @@ export default function Home({data}) {
       node['date'] = new Date(node['date']);
       return node;
     })
-  console.log(reports)
   return (
     <Layout>
       <DefaultPage data={data}/>
@@ -89,6 +88,7 @@ export const pageQuery = graphql`
           id
           headline
           slug
+          author
         }
       }
     }

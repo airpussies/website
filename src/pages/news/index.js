@@ -14,8 +14,6 @@ export default function NewsByYears({data}) {
     })
     .sort((a, b) => a['publicationDate'] < b['publicationDate'] ? 1 : -1)
   );
-  console.log(nodes)
-  window.nodes = nodes
   return (
     <Layout>
       <h1 className="is-1 title">Turnierhistorie</h1>
@@ -36,6 +34,7 @@ export const pageQuery = graphql`query {
         id
         headline
         slug
+        author
       }
     }
   }
