@@ -70,6 +70,8 @@ export const pageQuery = graphql`
           srcSetWebp
           srcSetWebp 
         }
+        description
+        title
       }
       body {
         childMarkdownRemark {

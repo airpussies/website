@@ -1,9 +1,15 @@
 @charset "utf-8";
 
-// If need, change your variables before importing Bulma
-//$title-color: #ff0000;
+$primary: #349663;
+@import "~bulma/sass/utilities/_all.sass";
+$link: #de1c35;
 
-$primary: hsl(141, 53%,  53%);
+
+$body-font-size: 1.1em;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+//$primary: hsl(141, 53%,  53%);
 
 a {
   text-shadow: none;
@@ -12,4 +18,31 @@ a {
   flex-wrap: wrap;
 }
 
-@import "~bulma/bulma.sass";
+section, footer {
+  //max-width: 960px;
+  margin: 0 auto;
+  background-color: $white-ter;
+}
+
+// this is the "all" import
+//@import "~bulma/bulma.sass";
+
+// Import only what you need from Bulma
+@import "~bulma/sass/utilities/_all.sass";
+@import "~bulma/sass/base/_all.sass";
+@import "~bulma/sass/helpers/all";
+@import "~bulma/sass/grid/all";
+//@import "~bulma/sass/elements/button.sass";
+@import "~bulma/sass/elements/container.sass";
+@import "~bulma/sass/elements/title.sass";
+@import "~bulma/sass/elements/tag.sass";
+@import "~bulma/sass/elements/content.sass";
+@import "~bulma/sass/elements/container.sass";
+@import "~bulma/sass/elements/box";
+@import "~bulma/sass/form/shared";
+@import "~bulma/sass/form/tools";
+
+@import "~bulma/sass/components/navbar.sass";
+@import "~bulma/sass/components/media";
+@import "~bulma/sass/components/card";
+@import "~bulma/sass/layout/all.sass";
