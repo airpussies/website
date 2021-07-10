@@ -47,10 +47,10 @@ export default class Navbar extends React.Component {
             <div className="navbar-end">
               <NavbarItem page="/" pagename="Home"/>
               <NavbarItem page="/news/" pagename="News"/>
-              <NavbarItem page="/turnierberichte/" pagename="Turniere"/>
+              <NavbarItem page="/turniere/" pagename="Turniere"/>
               {/*<NavbarItem page="/links/" pagename="Links" />*/}
               <NavbarItem page="/was_ist_ultimate/" pagename="Was ist Ultimate Frisbee"/>
-              {/*<NavbarItem page="/turnierberichte/" pagename=".ber Ultimate" />*/}
+              {/*<NavbarItem page="/turniere/" pagename=".ber Ultimate" />*/}
             </div>
           </div>
         </div>

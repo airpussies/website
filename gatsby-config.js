@@ -22,6 +22,31 @@ module.exports = {
     },
     `gatsby-transformer-remark`,
     'gatsby-plugin-sharp',
-    `gatsby-plugin-sass`
+    `gatsby-plugin-sass`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `air pussies`,
+        short_name: `air pussies`,
+        start_url: `/`,
+        legacy: true,
+        background_color: `#f5f5f5`,
+        theme_color: `#349663`,
+        display: `standalone`,
+        icon: `static/icons/icon.jpg`,
+        icons: [
+          {
+            src: `/favicons/android-chrome-192x192.png`,
+            sizes: `192x192`,
+            type: `image/png`,
+          },
+          {
+            src: `/favicons/android-chrome-512x512.png`,
+            sizes: `512x512`,
+            type: `image/png`,
+          }
+        ]
+      }
+    }
   ]
 }
