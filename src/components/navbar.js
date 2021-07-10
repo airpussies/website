@@ -1,28 +1,41 @@
 import React from 'react'
-import {Link} from 'gatsby'
+import {Link, navigate} from 'gatsby'
 import logo from '../../static/disc.jpg'
 import {Helmet} from 'react-helmet'
 
-const NavbarItem = props => (
-  <Link className="navbar-item" to={props.page}>
-    {props.pagename}
-  </Link>
-)
-const NavbarBurger = props => (
-  <div
-    onClick={props.toggleMenu}
-    className={`navbar-burger burger ${props.active ? 'is-active' : ''}`}
-  >
-    <span/>
-    <span/>
-    <span/>
-  </div>
-)
+function NavbarItem(props) {
+  return (
+    <Link
+      className={"navbar-item " + (props.active ? 'is-active' : 'not-active')}
+      onClick={props.onClick}
+      to={props.page}>
+      {props.pagename}
+    </Link>
+  )
+}
 
-export default class Navbar extends React.Component {
-  state = {
-    activeMenu: false,
+function NavbarBurger(props) {
+  return (
+    <div
+      onClick={props.toggleMenu}
+      className={`navbar-burger burger ${props.active ? 'is-active' : ''}`}
+    >
+      <span/>
+      <span/>
+      <span/>
+    </div>
+  )
+}
+
+class Navbar extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
+      activeMenu: false
+    }
   }
+
   toggleMenu = () => {
     this.setState({
       activeMenu: !this.state.activeMenu,
@@ -30,6 +43,20 @@ export default class Navbar extends React.Component {
   }
 
   render() {
+    const currentNav = this.state.currentNav;
+    const navItems = ([
+      {label: "Home", path: '/'},
+      {label: "News", path: '/news/'},
+      {label: "Turniere", path: '/turniere/'},
+      {label: "Was ist Ultimate Frisbee", path: '/was_ist_ultimate/'},
+    ]).map((entry, i) => {
+      return <NavbarItem
+        key={i}
+        page={entry.path}
+        pagename={entry.label}
+      />
+    })
+
     return (
       <nav className="navbar is-fixed-top has-shadow is-primary">
         <div className="container">
@@ -45,12 +72,7 @@ export default class Navbar extends React.Component {
           </div>
           <div className={`navbar-menu ${this.state.activeMenu ? 'is-active' : ''}`}>
             <div className="navbar-end">
-              <NavbarItem page="/" pagename="Home"/>
-              <NavbarItem page="/news/" pagename="News"/>
-              <NavbarItem page="/turniere/" pagename="Turniere"/>
-              {/*<NavbarItem page="/links/" pagename="Links" />*/}
-              <NavbarItem page="/was_ist_ultimate/" pagename="Was ist Ultimate Frisbee"/>
-              {/*<NavbarItem page="/turniere/" pagename=".ber Ultimate" />*/}
+              {navItems}
             </div>
           </div>
         </div>
@@ -63,3 +85,5 @@ export default class Navbar extends React.Component {
     )
   }
 }
+
+export default Navbar;
