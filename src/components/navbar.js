@@ -1,17 +1,25 @@
-import React from 'react'
+import React, {useContext, useState} from 'react'
 import {Link, navigate} from 'gatsby'
-import logo from '../../static/disc.jpg'
+import logo from '../../static/disc.png'
 import {Helmet} from 'react-helmet'
+import {UserContext} from "../context/UserProvider";
+import firebase from "gatsby-plugin-firebase";
 
 function NavbarItem(props) {
-  return (
-    <Link
-      className={"navbar-item " + (props.active ? 'is-active' : 'not-active')}
-      onClick={props.onClick}
-      to={props.page}>
-      {props.pagename}
-    </Link>
-  )
+  if (props.hide) {
+    return (
+      <></>
+    )
+  } else {
+    return (
+      <Link
+        className={"navbar-item " + (props.active ? 'is-active' : 'not-active')}
+        onClick={props.onClick}
+        to={props.page}>
+        {props.pagename}
+      </Link>
+    )
+  }
 }
 
 function NavbarBurger(props) {
@@ -27,63 +35,73 @@ function NavbarBurger(props) {
   )
 }
 
-class Navbar extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+function Navbar() {
+  const {user} = useContext(UserContext);
+  const [activeMenu, setActiveMenu] = useState(false);
+  const isLoggedIn = user !== undefined;
 
-    this.state = {
-      activeMenu: false
-    }
+  const toggleMenu = () => {
+    setActiveMenu(!activeMenu)
   }
 
-  toggleMenu = () => {
-    this.setState({
-      activeMenu: !this.state.activeMenu,
-    })
+  const logout = async (event) => {
+    event.preventDefault();
+    console.log("logging out");
+    await firebase.auth().signOut()
+    navigate("/");
   }
 
-  render() {
-    const currentNav = this.state.currentNav;
-    const navItems = ([
-      {label: "Home", path: '/'},
-      {label: "News", path: '/news/'},
-      {label: "Turniere", path: '/turniere/'},
-      {label: "Was ist Ultimate Frisbee", path: '/was_ist_ultimate/'},
-    ]).map((entry, i) => {
-      return <NavbarItem
-        key={i}
-        page={entry.path}
-        pagename={entry.label}
-      />
-    })
+  const items = [
+    {label: "Home", path: '/'},
+    {label: "News", path: '/news/'},
+    {label: "Turniere", path: '/turniere/'},
+    {label: "Was ist Ultimate Frisbee", path: '/was_ist_ultimate/'},
+    {label: "Registrieren", path: '/signup/', hide: isLoggedIn},
+    {label: "Einloggen", path: '/signin/', hide: isLoggedIn},
+    {label: "PW Zurücksetzen", path: '/passwordreset/', hide: isLoggedIn},
+    {label: "Profil", path: '/profile/', hide: !isLoggedIn},
+    {label: "Ausloggen", path: '/javascript:void()', hide: !isLoggedIn, onClick: logout},
+  ];
 
-    return (
-      <nav className="navbar is-fixed-top has-shadow is-primary">
-        <div className="container">
-          <div className="navbar-brand">
-            <Link className="navbar-item" to="/">
-              <img src={logo} height="28" width="28" alt="logo" style={{marginBottom: '0'}}/>
-              &nbsp;<span className="is-4">air pussies online</span>
-            </Link>
-            <NavbarBurger
-              active={this.state.activeMenu}
-              toggleMenu={this.toggleMenu}
-            />
-          </div>
-          <div className={`navbar-menu ${this.state.activeMenu ? 'is-active' : ''}`}>
-            <div className="navbar-end">
-              {navItems}
-            </div>
+  const navItems = items.map((entry, i) => {
+    return <NavbarItem
+      key={i}
+      page={entry.path}
+      pagename={entry.label}
+      hide={entry.hide}
+      onClick={entry.onClick}
+    />
+  })
+
+  return (
+    <nav className="navbar is-fixed-top has-shadow is-primary">
+      <div className="container">
+        <div className="navbar-brand">
+          <Link className="navbar-item" to="/">
+            <img src={logo} height="28" width="28" alt="logo" style={{marginBottom: '0'}}/>
+            &nbsp;<span className="is-4">air pussies online</span>
+          </Link>
+          <NavbarBurger
+            active={activeMenu}
+            toggleMenu={toggleMenu}
+          />
+        </div>
+        <div className={`navbar-menu ${activeMenu ? 'is-active' : ''}`}>
+          <div className="navbar-end">
+            {navItems}
           </div>
         </div>
-        <Helmet
-          bodyAttributes={{
-            class: 'has-navbar-fixed-top'
-          }}
-        />
-      </nav>
-    )
-  }
+      </div>
+      <Helmet
+        bodyAttributes={{
+          class: 'has-navbar-fixed-top'
+        }}
+      />
+      <div>
+        user={user?.displayName}
+      </div>
+    </nav>
+  );
 }
 
 export default Navbar;
