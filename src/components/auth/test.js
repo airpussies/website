@@ -252,7 +252,7 @@ const CreateEvent = (props) => {
       <button onClick={handleOnClick}>CreateEvent</button>
     </>
   )
-}
+};
 
 const PlayersRequired = (props) => {
   const {count, required, label} = props;
