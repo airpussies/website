@@ -28,21 +28,22 @@ section, footer {
 //@import "~bulma/bulma.sass";
 
 // Import only what you need from Bulma
-@import "~bulma/sass/utilities/_all.sass";
-@import "~bulma/sass/base/_all.sass";
+@import "~bulma/sass/utilities/all";
+@import "~bulma/sass/base/all";
 @import "~bulma/sass/helpers/all";
 @import "~bulma/sass/grid/all";
-//@import "~bulma/sass/elements/button.sass";
-@import "~bulma/sass/elements/container.sass";
-@import "~bulma/sass/elements/title.sass";
-@import "~bulma/sass/elements/tag.sass";
-@import "~bulma/sass/elements/content.sass";
-@import "~bulma/sass/elements/container.sass";
+@import "~bulma/sass/elements/button";
+@import "~bulma/sass/elements/container";
+@import "~bulma/sass/elements/title";
+@import "~bulma/sass/elements/tag";
+@import "~bulma/sass/elements/content";
+@import "~bulma/sass/elements/container";
 @import "~bulma/sass/elements/box";
-@import "~bulma/sass/form/shared";
-@import "~bulma/sass/form/tools";
+@import "~bulma/sass/elements/icon";
+@import "~bulma/sass/elements/other";
+@import "~bulma/sass/form/all";
 
-@import "~bulma/sass/components/navbar.sass";
+@import "~bulma/sass/components/navbar";
 @import "~bulma/sass/components/media";
 @import "~bulma/sass/components/card";
-@import "~bulma/sass/layout/all.sass";
+@import "~bulma/sass/layout/all";

@@ -1,14 +1,19 @@
 import firebase from "gatsby-plugin-firebase";
 
-export const updateEventDocument = async (event, additionalData) => {
-  if (!event) return;
-  const doc = await getEventDocument(event.uid);
-  const newDoc = {...doc, ...additionalData}
-  console.log("Updating event doc. New value = " + JSON.stringify(newDoc));
+export const updateEventDocument = async (id, team) => {
+  if (!id || !team) return;
 
-  await firebase.firestore().doc(`events/${event.id}`).update(newDoc);
+  const doc = await getEventDocument(id);
+  const newDoc = {...doc, teams: {...doc.teams, ...team}}
+  console.log(`Updating event doc (${id}, ${JSON.stringify(team)}). New value = ${JSON.stringify(newDoc)}`);
 
-  return getEventDocument(event.id);
+  try {
+    await firebase.firestore().doc(`events/${id}`).update(newDoc);
+  } catch (error) {
+    console.error("Error updating event document.", error);
+  }
+
+  return getEventDocument(id);
 };
 
 
@@ -16,15 +21,15 @@ export const generateEventDocument = async (id, additionalData) => {
 
   if (!id) return;
 
+  console.log(`generateEventDocument(${id})`);
+
   const eventRef = firebase.firestore().doc(`events/${id}`);
   const snapshot = await eventRef.get();
 
   if (!snapshot.exists) {
-    const {foo} = id;
-
     try {
       await eventRef.set({
-        foo,
+        id,
         ...additionalData
       });
     } catch (error) {

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import firebase from "gatsby-plugin-firebase";
-import {Link} from "gatsby"
+import {Link, navigate} from "gatsby"
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -15,6 +15,7 @@ const SignInForm = () => {
       firebase.auth().signInWithEmailAndPassword(email, password)
         .then((data) => {
           console.log("success " + JSON.stringify(data.user), data);
+          navigate("/")
           setError('success');
         })
         .catch(error => {
@@ -39,32 +40,51 @@ const SignInForm = () => {
     <>
       {error !== null && <div className="error">{error}</div>}
       <form className="">
-        <label htmlFor="userEmail">Email:</label>
-        <input type="email"
-               name="userEmail"
-               value={email}
-               placeholder="pickup@example.com"
-               id="userEmail"
-               onChange={event => onChangeHandler(event)}
-        />
-        <label htmlFor="userPassword">Password:</label>
-        <input type="password"
-               name="userPassword"
-               value={password}
-               placeholder="your password ••••••"
-               id="userPassword"
-               onChange={event => onChangeHandler(event)}
-        />
-        <button
-          onClick={(event) => signInWithEmailAndPasswordHandler(event, email, password)}
-        >
-          Sign in
-        </button>
+        <div className="field">
+          <p className="control has-icons-left">
+            <input type="email"
+                   className="input"
+                   name="userEmail"
+                   value={email}
+                   placeholder="pickup@example.com"
+                   id="userEmail"
+                   onChange={event => onChangeHandler(event)}
+            />
+            <span className="icon is-left">
+              <i className="fas fa-envelope"/>
+            </span>
+          </p>
+        </div>
+
+        <div className="field">
+          <p className="control has-icons-left">
+            <input type="password"
+                   name="userPassword"
+                   className="input"
+                   value={password}
+                   placeholder="your password ••••••"
+                   id="userPassword"
+                   onChange={event => onChangeHandler(event)}
+            />
+            <span className="icon is-left">
+              <i className="fas fa-lock"/>
+            </span>
+          </p>
+        </div>
+        <div className="field">
+          <p className="control">
+            <button
+              className="button is-success"
+              onClick={(event) => signInWithEmailAndPasswordHandler(event, email, password)}
+            >
+              Sign in
+            </button>
+          </p>
+        </div>
 
       </form>
-      <Link className="" to="/signup">Registrieren</Link>
+      <p><Link className="" to="/passwordreset">Passwort vergessen?</Link> Oder noch keinen Account? <Link className="" to="/signup">Registrieren</Link></p>
     </>
-
   );
 };
 

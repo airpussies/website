@@ -42,42 +42,67 @@ function SignupForm() {
         <div className="error">{error}</div>
       )}
       <form className="">
-        <label htmlFor="displayName">Display Name:</label>
-        <input type="text"
-               name="displayName"
-               value={displayName}
-               placeholder="pickup"
-               id="displayName"
-               onChange={event => onChangeHandler(event)}
-        />
-        <label htmlFor="userEmail">Email:</label>
-        <input type="email"
-               name="userEmail"
-               value={email}
-               placeholder="pickup@example.com"
-               id="userEmail"
-               onChange={event => onChangeHandler(event)}
-        />
-        <label htmlFor="userPassword">Password:</label>
-        <input type="password"
-               name="userPassword"
-               value={password}
-               placeholder="your password ••••••"
-               id="userPassword"
-               onChange={event => onChangeHandler(event)}
-        />
-        <button
-          onClick={event => {
-            createUserWithEmailAndPasswordHandler(event, email, password)
-          }}>
-          Sign up
-        </button>
-      </form>
 
-      <Link
-        to="/signin"
-        className=""
-      >Einloggen</Link>
+        <div className="field">
+          <p className="control has-icons-left has-icons-right">
+            <input
+              className="input"
+              type="text"
+              name="displayName"
+              value={displayName}
+              placeholder="pickup"
+              id="displayName"
+              onChange={event => onChangeHandler(event)}
+            />
+          </p>
+        </div>
+
+        <div className="field">
+          <p className="control has-icons-left">
+            <input type="email"
+                   className="input"
+                   name="userEmail"
+                   value={email}
+                   placeholder="pickup@example.com"
+                   id="userEmail"
+                   onChange={event => onChangeHandler(event)}
+            />
+            <span className="icon is-left">
+              <i className="fas fa-envelope"/>
+            </span>
+          </p>
+        </div>
+
+        <div className="field">
+          <p className="control has-icons-left">
+            <input type="password"
+                   name="userPassword"
+                   className="input"
+                   value={password}
+                   placeholder="your password ••••••"
+                   id="userPassword"
+                   onChange={event => onChangeHandler(event)}
+            />
+            <span className="icon is-small is-left">
+              <i className="fas fa-lock"/>
+            </span>
+          </p>
+        </div>
+        <div className="field">
+          <p className="control">
+            <button
+              className="button is-success"
+              onClick={event => {
+                createUserWithEmailAndPasswordHandler(event, email, password)
+              }}>
+              Sign up
+            </button>
+          </p>
+        </div>
+      </form>
+      <p>
+        Bereits registriert? <Link to="/signin" className="">Einloggen</Link>
+      </p>
     </>
   )
 }

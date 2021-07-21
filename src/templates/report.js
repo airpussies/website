@@ -41,9 +41,7 @@ class ReportTemplate extends React.Component {
     }
     return (
       <Layout>
-
-        <Foo event_id={year + "_" + slug}/>
-
+        <Foo event_id={`${year}_${slug}`}/>
         <h1 className="is-1 title">{title}</h1>
         <ReportTags date={date} location={location} fieldType={fieldType} division={division}/>
 

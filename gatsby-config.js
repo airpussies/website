@@ -3,7 +3,7 @@
  *
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
-
+const dotenv = require("dotenv").config()
 module.exports = {
   pathPrefix: "/website",
   siteMetadata: {
@@ -12,9 +12,9 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
-      resolve: `gatsby-source-contentful`,
+      resolve: "gatsby-source-contentful",
       options: {
-        spaceId: `f8cmlwci71xg`,
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
         // Learn about environment variables: https://gatsby.dev/env-vars
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
         downloadLocal: true

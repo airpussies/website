@@ -14,7 +14,6 @@ function NavbarItem(props) {
     return (
       <Link
         className={"navbar-item " + (props.active ? 'is-active' : 'not-active')}
-        onClick={props.onClick}
         to={props.page}>
         {props.pagename}
       </Link>
@@ -58,9 +57,7 @@ function Navbar() {
     {label: "Was ist Ultimate Frisbee", path: '/was_ist_ultimate/'},
     {label: "Registrieren", path: '/signup/', hide: isLoggedIn},
     {label: "Einloggen", path: '/signin/', hide: isLoggedIn},
-    {label: "PW Zurücksetzen", path: '/passwordreset/', hide: isLoggedIn},
     {label: "Profil", path: '/profile/', hide: !isLoggedIn},
-    {label: "Ausloggen", path: '/javascript:void()', hide: !isLoggedIn, onClick: logout},
   ];
 
   const navItems = items.map((entry, i) => {
@@ -89,6 +86,12 @@ function Navbar() {
         <div className={`navbar-menu ${activeMenu ? 'is-active' : ''}`}>
           <div className="navbar-end">
             {navItems}
+            <Link
+              style={!isLoggedIn ? {display: 'none'} : {}}
+              className="navbar-item"
+              to="/"
+              onClick={(event) => logout(event)}>Logout
+            </Link>
           </div>
         </div>
       </div>
@@ -97,9 +100,6 @@ function Navbar() {
           class: 'has-navbar-fixed-top'
         }}
       />
-      <div>
-        user={user?.displayName}
-      </div>
     </nav>
   );
 }

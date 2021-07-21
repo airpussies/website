@@ -5,6 +5,7 @@ import Header from './header'
 import './layout.scss'
 import Footer from "./footer";
 import UserProvider from "../context/UserProvider";
+import {Helmet} from "react-helmet";
 
 const Layout = ({children}) => (
   <StaticQuery
@@ -28,6 +29,9 @@ const Layout = ({children}) => (
           </div>
         </section>
         <Footer/>
+        <Helmet>
+          <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+        </Helmet>
       </UserProvider>
     )}
   />
