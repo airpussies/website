@@ -133,7 +133,7 @@ const Pussie = (props) => {
 const Pussies = (props) => {
   const {current_user, evnt, team, onEventChange} = props;
   const current_team = evnt.teams[team];
-  const user_enlisted = new Set(Object.keys(current_team.pussies || {})).has(current_user.displayName);
+  const user_enlisted = new Set(Object.keys(current_team?.pussies || {})).has(current_user?.displayName);
   console.log("current_team", current_team);
 
   const addUser = async (event, data) => {

@@ -44,7 +44,7 @@ function SignupForm() {
       <form className="">
 
         <div className="field">
-          <p className="control has-icons-left has-icons-right">
+          <p className="control has-icons-left">
             <input
               className="input"
               type="text"
@@ -54,6 +54,7 @@ function SignupForm() {
               id="displayName"
               onChange={event => onChangeHandler(event)}
             />
+            <span className="icon is-small is-left"><i className="fas fa-user"/></span>
           </p>
         </div>
 
@@ -67,9 +68,7 @@ function SignupForm() {
                    id="userEmail"
                    onChange={event => onChangeHandler(event)}
             />
-            <span className="icon is-left">
-              <i className="fas fa-envelope"/>
-            </span>
+            <span className="icon is-left"><i className="fas fa-envelope"/></span>
           </p>
         </div>
 
