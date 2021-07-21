@@ -38,6 +38,7 @@ function SignupForm() {
 
   return (
     <>
+      <h1 className="is-1 title">Registrieren</h1>
       {error !== null && (
         <div className="error">{error}</div>
       )}

@@ -38,6 +38,7 @@ const SignInForm = () => {
 
   return (
     <>
+      <h1 className="is-1 title">Einloggen</h1>
       {error !== null && <div className="error">{error}</div>}
       <form className="">
         <div className="field">

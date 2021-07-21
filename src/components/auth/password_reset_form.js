@@ -30,7 +30,7 @@ const PasswordResetForm = () => {
 
   return (
     <div>
-      <h1>Passwort zurücksetzen</h1>
+      <h1 className="is-1 title">Passwort zurücksetzen</h1>
       <form action="">
         {emailHasBeenSent && (
           <div className="help help is-success">
