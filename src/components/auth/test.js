@@ -251,7 +251,7 @@ const CreateEvent = (props) => {
       <h2>CreateEvent</h2>
       <button onClick={handleOnClick}>CreateEvent</button>
     </>
-  )
+  );
 };
 
 const PlayersRequired = (props) => {
