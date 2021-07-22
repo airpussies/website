@@ -5,17 +5,15 @@ import {updateUserDocument} from "../../lib/firebase_user";
 
 const Team = (props) => {
   return (
-    <div>
-      <label className="checkbox" htmlFor={props.name}>
-        <input
-          type="checkbox"
-          id={props.name}
-          name={props.displayName}
-          checked={props.checked}
-          onChange={props.onChange}
-        />&nbsp;{props.displayName}
-      </label>
-    </div>
+    <label className="checkbox" htmlFor={props.name} style={{paddingRight: 15 + 'px'}}>
+      <input
+        type="checkbox"
+        id={props.name}
+        name={props.displayName}
+        checked={props.checked}
+        onChange={props.onChange}
+      />&nbsp;{props.displayName}
+    </label>
   )
 }
 
@@ -28,6 +26,7 @@ const ProfileForm = () => {
     const [message, setMessage] = useState(null);
     const [teams, setTeams] = useState([]);
     const [sex, setSex] = useState(null);
+    const [secret, setSecret] = useState(null);
     const [myTeams, setMyTeams] = useState(new Set([]));
 
     useEffect(() => {
@@ -41,6 +40,7 @@ const ProfileForm = () => {
       })();
       setDisplayName(user?.displayName);
       setSex(user?.sex);
+      setSecret(user?.secret);
       setMyTeams(new Set(user?.teams));
     }, [user])
 
@@ -48,9 +48,9 @@ const ProfileForm = () => {
       event.preventDefault();
       setError('');
       try {
-        console.log("calling updateUserDocument(" + displayName + ")")
-        const newDoc = await updateUserDocument(user, {displayName, sex, teams: [...myTeams]})
-        console.log("done updateUserDocument." + JSON.stringify(newDoc));
+        // console.log("calling updateUserDocument(" + displayName + ")")
+        const newDoc = await updateUserDocument(user, {displayName, secret, sex, teams: [...myTeams]})
+        // console.log("done updateUserDocument." + JSON.stringify(newDoc));
         setMessage("Erfolgreich gespeichert.");
         window.setTimeout(() => {
           setMessage("")
@@ -65,6 +65,8 @@ const ProfileForm = () => {
       const {name, value} = event.currentTarget;
       if (name === "displayName") {
         setDisplayName(value)
+      } else if (name === "secret") {
+        setSecret(value)
       } else if (name === "sex") {
         setSex(value)
       } else if (event.target.type === 'checkbox') {
@@ -79,7 +81,7 @@ const ProfileForm = () => {
     };
 
     const teamsPicker = isLoading || user === undefined ? <>Loading</> : <>
-      Wähle deine Teams
+      <label className="label">Wähle deine Teams</label>
       {teams.map((team, i) =>
         <Team
           key={i}
@@ -111,6 +113,18 @@ const ProfileForm = () => {
                        onChange={event => onChangeHandler(event)}
                 />
                 <span className="icon is-small is-left"><i className="fas fa-user"/></span>
+              </p>
+              <label htmlFor="secret" className="label">"Pussiegeheimnis"</label>
+              <p className="control is-expanded has-icons-left">
+                <input type="text"
+                       className="input"
+                       name="secret"
+                       value={secret}
+                       placeholder="pussie seal of authenticity"
+                       id="secret"
+                       onChange={event => onChangeHandler(event)}
+                />
+                <span className="icon is-small is-left"><i className="fas fa-user-secret"/></span>
               </p>
               <label htmlFor="sex" className="label">Division</label>
               <p className="control select">
