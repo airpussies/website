@@ -5,13 +5,9 @@ export const updateEventDocument = async (id, team) => {
 
   const doc = await getEventDocument(id);
   const newDoc = {...doc, teams: {...doc.teams, ...team}}
-  console.log(`Updating event doc (${id}, ${JSON.stringify(team)}). New value = ${JSON.stringify(newDoc)}`);
+  // console.log(`Updating event doc (${id}, ${JSON.stringify(team)}). New value = ${JSON.stringify(newDoc)}`);
 
-  try {
-    await firebase.firestore().doc(`events/${id}`).update(newDoc);
-  } catch (error) {
-    console.error("Error updating event document.", error);
-  }
+  await firebase.firestore().doc(`events/${id}`).update(newDoc);
 
   return getEventDocument(id);
 };

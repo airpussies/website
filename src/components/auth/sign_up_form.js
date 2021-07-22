@@ -45,7 +45,7 @@ function SignupForm() {
       {error !== null && (
         <article className="message is-danger">
           <div className="message-header">
-            <p>{error}</p>
+            <p style={{margin: 0}}>{error}</p>
             <button className="delete" aria-label="delete"
                     onClick={() => {
                       setError(null);

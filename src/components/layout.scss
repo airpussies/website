@@ -5,7 +5,7 @@ $primary: #349663;
 $link: #de1c35;
 
 
-$body-font-size: 1.1em;
+//$body-font-size: 1.0em;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
@@ -18,14 +18,9 @@ a {
   flex-wrap: wrap;
 }
 
-section, footer {
-  //max-width: 960px;
-  margin: 0 auto;
-  background-color: $white-ter;
+section {
+  background-color: $white;
 }
-
-// this is the "all" import
-//@import "~bulma/bulma.sass";
 
 // Import only what you need from Bulma
 @import "~bulma/sass/utilities/all";

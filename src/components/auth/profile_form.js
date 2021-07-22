@@ -22,12 +22,14 @@ const ProfileForm = () => {
 
     const [displayName, setDisplayName] = useState('');
 
-    const [error, setError] = useState(null);
-    const [message, setMessage] = useState(null);
     const [teams, setTeams] = useState([]);
-    const [sex, setSex] = useState(null);
-    const [secret, setSecret] = useState(null);
-    const [myTeams, setMyTeams] = useState(new Set([]));
+    const [sex, setSex] = useState("none");
+    const [secret, setSecret] = useState("");
+    const [myTeams, setMyTeams] = useState(new Set(["air pussies"]));
+
+    const [message, setMessage] = useState(null);
+    const [error, setError] = useState(null);
+    const [detail, setDetail] = useState(null);
 
     useEffect(() => {
       (async () => {
@@ -39,14 +41,15 @@ const ProfileForm = () => {
         setTeams(teams)
       })();
       setDisplayName(user?.displayName);
-      setSex(user?.sex);
-      setSecret(user?.secret);
+      setSex(user?.sex || "none");
+      setSecret(user?.secret || "");
       setMyTeams(new Set(user?.teams));
     }, [user])
 
     const updateProfile = async (event) => {
       event.preventDefault();
-      setError('');
+      setError(null);
+      setDetail(null)
       try {
         // console.log("calling updateUserDocument(" + displayName + ")")
         const newDoc = await updateUserDocument(user, {displayName, secret, sex, teams: [...myTeams]})
@@ -56,8 +59,9 @@ const ProfileForm = () => {
           setMessage("")
         }, 5000);
       } catch (error) {
-        console.log("Error updating user.", error);
-        setError("Error updating user.");
+        const {code, message} = error;
+        setError(`Operation fehlgeschlagen. (${code})`);
+        setDetail(message);
       }
     };
 
@@ -95,7 +99,19 @@ const ProfileForm = () => {
     return (
       <>
         <h1 className="is-1 title">Profil</h1>
-        {error !== null && <div className="help is-error">{error}</div>}
+        {error !== null && (
+          <article className="message is-danger">
+            <div className="message-header">
+              <p>{error}</p>
+              <button className="delete" aria-label="delete"
+                      onClick={() => {
+                        setError(null);
+                        setDetail(null);
+                      }}/>
+            </div>
+            <div className="message-body">{detail}</div>
+          </article>
+        )}
         {message !== null && <p className="help is-success">{message}</p>}
 
         {!isLoading ? <>

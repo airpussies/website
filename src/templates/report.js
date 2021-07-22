@@ -3,7 +3,7 @@ import * as PropTypes from "prop-types"
 import Layout from "../components/layout";
 import {graphql} from "gatsby";
 import ReportTags from "../components/reports/reportTags";
-import Foo from "../components/auth/test";
+import Turnierverwaltung from "../components/tv/turnierverwaltung";
 
 const propTypes = {
   data: PropTypes.object.isRequired,
@@ -41,14 +41,15 @@ class ReportTemplate extends React.Component {
     }
     return (
       <Layout>
-        <Foo event_id={`${year}_${slug}`}/>
         <h1 className="is-1 title">{title}</h1>
         <ReportTags date={date} location={location} fieldType={fieldType} division={division}/>
-
         <div className="wrapper">
           {maybeDescription}
           {maybeReport}
         </div>
+        <hr/>
+        <h2 className="is-2">Turnierverwaltung</h2>
+        <Turnierverwaltung event_id={`${year}_${slug}`}/>
       </Layout>
     )
   }
