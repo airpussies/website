@@ -29,7 +29,8 @@ export const generateUserDocument = async (user, additionalData) => {
         ...additionalData
       });
     } catch (error) {
-      console.error("Error creating user document.", error);
+      console.error("Fehler bei der Registrierung mit Email und Passwort.", error);
+      throw error;
     }
   }
   return getUserDocument(user.uid);

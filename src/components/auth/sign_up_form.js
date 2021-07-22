@@ -1,24 +1,27 @@
 import React, {useState} from "react";
 import firebase from "gatsby-plugin-firebase";
-import generateUserDocument from "../../lib/firebase_user";
-import {Link} from "gatsby";
+import {generateUserDocument} from "../../lib/firebase_user";
+import {Link, navigate} from "gatsby";
 
 function SignupForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [error, setError] = useState(null);
+  const [detail, setDetail] = useState(null);
 
   const createUserWithEmailAndPasswordHandler = async (event, email, password) => {
     event.preventDefault();
-    setError('');
+    setError(null);
+    setDetail(null);
     try {
       const {user} = await firebase.auth().createUserWithEmailAndPassword(email, password);
-      generateUserDocument(user, {displayName})
-
+      await generateUserDocument(user, {displayName})
+      navigate("/profile");
     } catch (error) {
-      console.log("Error signing up with email and password.", error);
-      setError("Error signing up with email and password.");
+      const {code, message} = error;
+      setError(`Error signing up with email and password. (${code})`);
+      setDetail(message);
     }
     setEmail("");
     setPassword("");
@@ -40,7 +43,17 @@ function SignupForm() {
     <>
       <h1 className="is-1 title">Registrieren</h1>
       {error !== null && (
-        <div className="error">{error}</div>
+        <article className="message is-danger">
+          <div className="message-header">
+            <p>{error}</p>
+            <button className="delete" aria-label="delete"
+                    onClick={() => {
+                      setError(null);
+                      setDetail(null);
+                    }}/>
+          </div>
+          <div className="message-body">{detail}</div>
+        </article>
       )}
       <form className="">
 

@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {UserContext} from "../../context/UserProvider";
 import firebase from "gatsby-plugin-firebase";
+import {Link} from "gatsby";
 import {generateEventDocument, updateEventDocument} from "../../lib/firebase_event";
 import {count, removeKeyFromObj} from "../../utils/helpers";
 
@@ -55,6 +56,14 @@ const Pussie = (props) => {
 
   return (
     <div className="field is-horizontal">
+      <input
+        type="text"
+        name="name"
+        className="input is-small"
+        value={name}
+        placeholder="name"
+        onChange={event => onChangeHandler(event)}
+      />
       <div className={`select is-small ${state_to_color(state)}`}>
         <select name="state"
                 id="state"
@@ -67,14 +76,6 @@ const Pussie = (props) => {
           <option value="nope">bin raus</option>
         </select>
       </div>
-      <input
-        type="text"
-        name="name"
-        className="input is-small"
-        value={name}
-        placeholder="name"
-        onChange={event => onChangeHandler(event)}
-      />
       <div className={`select is-small`}>
         <select name="sex"
                 id="sex"
@@ -174,8 +175,8 @@ const Pussies = (props) => {
         <Pussie name={player_name} pussie={data} key={player_name} onClick={addUser} delUser={delUser}/>
       )}
       {!user_enlisted ? <><br/>du bist noch nicht dabei <br/> <Pussie pussie={{sex: current_user?.sex}}
-                                                                      key={current_user.displayName}
-                                                                      name={current_user.displayName}
+                                                                      key={current_user?.displayName}
+                                                                      name={current_user?.displayName}
                                                                       onClick={addUser}
                                                                       delUser={delUser}/></> : <></>}
       <br/>Pickup hinzufügen <br/> <Pussie pussie={{}} name='' onClick={addUser} delUser={delUser} key="pickup"/>
@@ -427,8 +428,10 @@ const Foo = (props) => {
   useEffect(() => {
 
     (async () => {
-      const evnt = await generateEventDocument(props.event_id)
-      setEvnt(evnt);
+      if (!isLoading && user !== undefined) {
+        const evnt = await generateEventDocument(props.event_id)
+        setEvnt(evnt);
+      }
     })();
   }, [])
 
@@ -439,7 +442,13 @@ const Foo = (props) => {
 
   return (<>
       {
-        isLoading ? <>Loading</> :
+        isLoading || user === undefined ?
+          <article className="message is-info">
+            <div className="message-body">
+              Die Turnierverwaltung steht nur registrierten Nutzern zur Verfügung.
+              Zur <Link to="/signup">Registrierung</Link>
+            </div>
+          </article> :
           <div>
             {evnt !== null && evnt.id === 'non_existent' ?
               <CreateEvent event_id={props.event_id} onEventChange={onEventChange}/> : <></>}
