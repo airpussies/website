@@ -8,7 +8,7 @@ import {count, removeKeyFromObj} from "../../utils/helpers";
 const Pussie = (props) => {
   const [name, setName] = useState(props.name || "");
   const [state, setState] = useState(props.pussie.state || "yep");
-  const [sex, setSex] = useState(props.pussie.sex || null);
+  const [sex, setSex] = useState(props.pussie.sex || "none");
   const [comment, setComment] = useState(props.pussie.comment || "");
   const [accommodation, setAccommodation] = useState(props.pussie.accommodation || "");
   const [travel, setTravel] = useState(props.pussie.travel || "");
@@ -225,7 +225,7 @@ const CreateTeam = (props) => {
   return (props.missingTeams.length > 0 ? <>
       <h3>Eines deiner Teams ist nicht dabei?</h3>
       <div className="field">
-        <p className="control is-horizontal">
+        <div className="control is-horizontal">
           {teamsPicker}
           <button className="button is-success is-small" onClick={() => props.addTeam(team)}>
                     <span className="icon is-small is-left">
@@ -233,7 +233,7 @@ const CreateTeam = (props) => {
         </span>
             <span>Team hinzufügen</span>
           </button>
-        </p>
+        </div>
       </div>
     </> : <></>
   );
@@ -358,7 +358,7 @@ const Event = (props) => {
                 <span className="tag is-dark">kontaktiert?</span>
                 <span
                   className={"tag " + (value.contacted ? "is-primary" : "is-danger")}>{value.contacted ? 'yep' : 'nope'}&nbsp;
-                  <input type="checkbox" checked={value.contacted}
+                  <input type="checkbox" defaultChecked={value.contacted}
                          onClick={() => toggle({[team]: {...value, contacted: !value.contacted}})}/></span>
               </div>
             </div>
@@ -367,7 +367,7 @@ const Event = (props) => {
                 <span className="tag is-dark">Spot sicher?</span>
                 <span
                   className={"tag " + (value.spot_confirmed ? "is-primary" : "is-danger")}>{value.spot_confirmed ? 'yep' : 'nope'}&nbsp;
-                  <input type="checkbox" checked={value.spot_confirmed}
+                  <input type="checkbox" defaultChecked={value.spot_confirmed}
                          onClick={() => toggle({[team]: {...value, spot_confirmed: !value.spot_confirmed}})}/></span>
               </div>
             </div>
@@ -376,7 +376,7 @@ const Event = (props) => {
                 <span className="tag is-dark">Team fee Bezahlt?</span>
                 <span
                   className={"tag " + (value.fee_payed ? "is-primary" : "is-danger")}>{value.fee_payed ? 'yep' : 'nope'}&nbsp;
-                  <input type="checkbox" checked={value.fee_payed}
+                  <input type="checkbox" defaultChecked={value.fee_payed}
                          onClick={() => toggle({[team]: {...value, fee_payed: !value.fee_payed}})}/></span>
               </div>
             </div>
