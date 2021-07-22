@@ -433,7 +433,7 @@ const Foo = (props) => {
         setEvnt(evnt);
       }
     })();
-  }, [])
+  }, [user, isLoading])
 
   const onEventChange = (evnt) => {
     console.log('onEventChange', evnt);
@@ -450,9 +450,9 @@ const Foo = (props) => {
             </div>
           </article> :
           <div>
-            {evnt !== null && evnt.id === 'non_existent' ?
+            {evnt !== null && evnt?.id === 'non_existent' ?
               <CreateEvent event_id={props.event_id} onEventChange={onEventChange}/> : <></>}
-            {evnt !== null && evnt.id === props.event_id ?
+            {evnt !== null && evnt?.id === props.event_id ?
               <Event onEventChange={onEventChange} evnt={evnt}/> : <></>}
           </div>
       }</>
