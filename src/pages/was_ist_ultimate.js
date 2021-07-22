@@ -30,7 +30,6 @@ export const pageQuery = graphql`
           srcSet
           sizes
           base64
-          tracedSVG
           srcSetWebp
           srcSetWebp 
         }

@@ -50,7 +50,8 @@ exports.createPages = ({graphql, actions}) => {
           }
         }
       }
-`)
+    `
+      )
         .then(result => {
           if (result.errors) {
             console.log(result.errors)
@@ -62,7 +63,7 @@ exports.createPages = ({graphql, actions}) => {
           _.each(result.data.allContentfulTurnierbericht.edges, edge => {
             console.log(`createPage(report, ${edge.node.year}/${edge.node.slug})`)
             createPage({
-              path: `/turnierberichte/${edge.node.year}/${edge.node.slug}/`,
+              path: `/turniere/${edge.node.year}/${edge.node.slug}/`,
               component: slash(newsTemplate),
               context: {
                 slug: edge.node.slug

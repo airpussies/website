@@ -1,65 +1,107 @@
-import React from 'react'
-import {Link} from 'gatsby'
-import logo from '../../static/disc.jpg'
+import React, {useContext, useState} from 'react'
+import {Link, navigate} from 'gatsby'
+import logo from '../../static/disc.png'
 import {Helmet} from 'react-helmet'
+import {UserContext} from "../context/UserProvider";
+import firebase from "gatsby-plugin-firebase";
 
-const NavbarItem = props => (
-  <Link className="navbar-item" to={props.page}>
-    {props.pagename}
-  </Link>
-)
-const NavbarBurger = props => (
-  <div
-    onClick={props.toggleMenu}
-    className={`navbar-burger burger ${props.active ? 'is-active' : ''}`}
-  >
-    <span/>
-    <span/>
-    <span/>
-  </div>
-)
-
-export default class Navbar extends React.Component {
-  state = {
-    activeMenu: false,
-  }
-  toggleMenu = () => {
-    this.setState({
-      activeMenu: !this.state.activeMenu,
-    })
-  }
-
-  render() {
+function NavbarItem(props) {
+  if (props.hide) {
     return (
-      <nav className="navbar is-fixed-top has-shadow is-primary">
-        <div className="container">
-          <div className="navbar-brand">
-            <Link className="navbar-item" to="/">
-              <img src={logo} height="28" width="28" alt="logo" style={{marginBottom: '0'}}/>
-              &nbsp;<span className="is-4">air pussies online</span>
-            </Link>
-            <NavbarBurger
-              active={this.state.activeMenu}
-              toggleMenu={this.toggleMenu}
-            />
-          </div>
-          <div className={`navbar-menu ${this.state.activeMenu ? 'is-active' : ''}`}>
-            <div className="navbar-end">
-              <NavbarItem page="/" pagename="Home"/>
-              <NavbarItem page="/news/" pagename="News"/>
-              <NavbarItem page="/turnierberichte/" pagename="Turniere"/>
-              {/*<NavbarItem page="/links/" pagename="Links" />*/}
-              <NavbarItem page="/was_ist_ultimate/" pagename="Was ist Ultimate Frisbee"/>
-              {/*<NavbarItem page="/turnierberichte/" pagename=".ber Ultimate" />*/}
-            </div>
-          </div>
-        </div>
-        <Helmet
-          bodyAttributes={{
-            class: 'has-navbar-fixed-top'
-          }}
-        />
-      </nav>
+      <></>
+    )
+  } else {
+    return (
+      <Link
+        className={"navbar-item " + (props.active ? 'is-active' : 'not-active')}
+        to={props.page}>
+        {props.pagename}
+      </Link>
     )
   }
 }
+
+function NavbarBurger(props) {
+  return (
+    <div
+      onClick={props.toggleMenu}
+      className={`navbar-burger burger ${props.active ? 'is-active' : ''}`}
+    >
+      <span/>
+      <span/>
+      <span/>
+    </div>
+  )
+}
+
+function Navbar() {
+  const {user} = useContext(UserContext);
+  const [activeMenu, setActiveMenu] = useState(false);
+  const isLoggedIn = user !== undefined;
+
+  const toggleMenu = () => {
+    setActiveMenu(!activeMenu)
+  }
+
+  const logout = async (event) => {
+    event.preventDefault();
+    console.log("logging out");
+    await firebase.auth().signOut()
+    navigate("/");
+  }
+
+  const items = [
+    {label: "Home", path: '/'},
+    {label: "News", path: '/news/'},
+    {label: "Turniere", path: '/turniere/'},
+    {label: "Was ist Ultimate Frisbee", path: '/was_ist_ultimate/'},
+    {label: "Registrieren", path: '/signup/', hide: isLoggedIn},
+    {label: "Einloggen", path: '/signin/', hide: isLoggedIn},
+    {label: "Profil", path: '/profile/', hide: !isLoggedIn},
+  ];
+
+  const navItems = items.map((entry, i) => {
+    return <NavbarItem
+      key={i}
+      page={entry.path}
+      pagename={entry.label}
+      hide={entry.hide}
+      onClick={entry.onClick}
+    />
+  })
+
+  return (
+    <nav className="navbar is-fixed-top has-shadow is-primary">
+      <div className="container">
+        <div className="navbar-brand">
+          <Link className="navbar-item" to="/">
+            <img src={logo} height="28" width="28" alt="logo" style={{marginBottom: '0'}}/>
+            &nbsp;<span className="is-4">air pussies online</span>
+          </Link>
+          <NavbarBurger
+            active={activeMenu}
+            toggleMenu={toggleMenu}
+          />
+        </div>
+        <div className={`navbar-menu ${activeMenu ? 'is-active' : ''}`}>
+          <div className="navbar-end">
+            {navItems}
+            <Link
+              style={!isLoggedIn ? {display: 'none'} : {}}
+              className="navbar-item"
+              to="/"
+              onClick={(event) => logout(event)}>Logout
+            </Link>
+          </div>
+        </div>
+      </div>
+      <Helmet
+        bodyAttributes={{
+          class: 'has-navbar-fixed-top'
+        }}
+      />
+    </nav>
+  );
+}
+
+export default Navbar;

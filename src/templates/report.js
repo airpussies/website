@@ -3,17 +3,19 @@ import * as PropTypes from "prop-types"
 import Layout from "../components/layout";
 import {graphql} from "gatsby";
 import ReportTags from "../components/reports/reportTags";
+import Turnierverwaltung from "../components/tv/turnierverwaltung";
 
 const propTypes = {
   data: PropTypes.object.isRequired,
 }
-
 
 class ReportTemplate extends React.Component {
 
   render() {
     const news = this.props.data.contentfulTurnierbericht;
     const {
+      year,
+      slug,
       title,
       date,
       description,
@@ -41,11 +43,13 @@ class ReportTemplate extends React.Component {
       <Layout>
         <h1 className="is-1 title">{title}</h1>
         <ReportTags date={date} location={location} fieldType={fieldType} division={division}/>
-
         <div className="wrapper">
           {maybeDescription}
           {maybeReport}
         </div>
+        <hr/>
+        <h2 className="is-2">Turnierverwaltung</h2>
+        <Turnierverwaltung event_id={`${year}_${slug}`}/>
       </Layout>
     )
   }
@@ -62,6 +66,8 @@ export const pageQuery = graphql`
       }
     }
     contentfulTurnierbericht(slug: {eq: $slug}) {
+      year: date(formatString: "Y")
+      slug
       date(formatString: "DD.MM.YYYY")
       fieldType
       location

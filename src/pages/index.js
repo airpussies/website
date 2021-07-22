@@ -35,12 +35,12 @@ export default function Home({data}) {
         </div>
         <div className="column">
           <section className="section">
-            <Link to={"/turnierberichte"}><h3 className={"subtitle"}>Neueste Turniere</h3></Link>
+            <Link to={"/turniere"}><h3 className={"subtitle"}>Neueste Turniere</h3></Link>
             {reports.map((item, i) => (
               <Report report={item} key={i}/>
             ))}
 
-            <Link to={"/turnierberichte"}>Alle Turniere</Link>
+            <Link to={"/turniere"}>Alle Turniere</Link>
           </section>
         </div>
       </div>
