@@ -199,6 +199,25 @@ export const Event = (props) => {
                 }
               })}
             />
+            <div className="control">
+              <div className="tags has-addons">
+                <span className="tag is-dark">Corona-Modus</span>
+                <span
+                  className={"tag " + (value.corona_condition === "2G" ? "is-success" : (value.corona_condition === "3G" ? "is-warning" : "is-danger"))}>{value.corona_condition}&nbsp;
+                  <button
+                    style={{fontSize: 0.45 + 'rem'}}
+                    className="button is-small"
+                    onClick={() => {
+                      let next = "2G";
+                      if (value.corona_condition === "2G") {
+                        next = "3G";
+                      } else if (value.corona_condition === "3G") {
+                        next = "☠";
+                      }
+                      toggle({[team]: {...value, corona_condition: next}})}}>↺</button>
+                </span>
+              </div>
+            </div>
           </div>
           {!isLoading && evnt !== undefined ?
             <Pussies
