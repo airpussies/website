@@ -1,7 +1,7 @@
 # air pussies web site
 
 We're an [Ultimate](https://en.wikipedia.org/wiki/Ultimate_(sport)) team from Berlin, Germany. This repository
-hold the code that generates our website: Visit us at [https://airpussies.berlin](https://airpussies.berlin)
+contains the code that generates our website: Visit us at [https://airpussies.berlin](https://airpussies.berlin)
 
 ![screenshot of our homepage](./docs/home.png)
 
