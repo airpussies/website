@@ -78,7 +78,7 @@ const Pussie = (props) => {
         <input
           type="text"
           name="name"
-          className="input is-small"
+          className="input is-small not_so_grey"
           value={name}
           placeholder="name"
           readOnly={!props.allowDisplayNameChange}

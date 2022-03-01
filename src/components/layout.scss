@@ -44,3 +44,9 @@ section {
 @import "~bulma/sass/components/card";
 @import "~bulma/sass/components/message";
 @import "~bulma/sass/layout/all";
+
+
+.not_so_grey.input[disabled] {
+  color: $text;
+  background: $white-bis;
+}
