@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react'
 import {Link, navigate} from 'gatsby'
 import logo from '../../static/disc.png'
-import {Helmet} from 'react-helmet'
 import {UserContext} from "../context/UserProvider";
 import firebase from "gatsby-plugin-firebase";
 
@@ -95,11 +94,6 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <Helmet
-        bodyAttributes={{
-          class: 'has-navbar-fixed-top'
-        }}
-      />
     </nav>
   );
 }

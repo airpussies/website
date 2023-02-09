@@ -5,6 +5,18 @@ import DefaultPage from "../components/defaultPage";
 import News from "../components/reports/news";
 import Report from "../components/reports/report";
 
+export function Head({ location, params, data, pageContext }) {
+  return (
+    <>
+      <title>air pussies — Berliner Ultimate Frisbee Verein</title>
+      <meta name="description" content="Ultimate Frisbee, Training, anfängerfreundlich, ambitioniert, Berlin, Spirit of the Game, Offen für alle"/>
+      <meta property="og:title" content="air pussies Berlin Ultimate" />
+      <body className={'has-navbar-fixed-top'}></body>
+      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+    </>
+  )
+}
+
 export default function Home({data}) {
   const news = data.allContentfulNews.edges.map(edge => edge['node'])
     .map(node => {
@@ -60,16 +72,11 @@ export const pageQuery = graphql`
       headline
       publicationDate(formatString: "MMMM Do, YYYY")
       teaser {
-        fluid(maxWidth: 1180, background: "rgb:000000") {
-          aspectRatio
-          src
-          srcSet
-          sizes
-          base64
-          tracedSVG
-          srcSetWebp
-          srcSetWebp 
-        }
+          gatsbyImageData(
+            layout: FULL_WIDTH
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
         description
         title
       }

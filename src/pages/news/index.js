@@ -4,6 +4,21 @@ import Layout from "../../components/layout";
 import EntriesByYear from "../../components/reports/EntriesByYear";
 import {group_by} from "../../lib/util"
 
+export function Head({ location, params, data, pageContext }) {
+  return (
+    <>
+      <>
+        <title>{`air pussies — alle News`}</title>
+        <meta name="twitter:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
+        <meta property="og:title" content={`air pussies — alle News`}/>
+        <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
+        <body className={'has-navbar-fixed-top'}></body>
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+      </>
+
+    </>
+  )
+}
 export default function NewsByYears({data}) {
   const nodes = group_by('year', data.allContentfulNews.edges
     .map(edge => edge['node'])
@@ -33,7 +48,6 @@ export const pageQuery = graphql`query {
         slug
         id
         headline
-        slug
         author
       }
     }

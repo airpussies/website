@@ -3,6 +3,15 @@ import Layout from "../components/layout";
 import {graphql} from "gatsby"
 import DefaultPage from "../components/defaultPage";
 
+export function Head() {
+  return (
+    <>
+      <body className={'has-navbar-fixed-top'}></body>
+      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+    </>
+  )
+}
+
 export default function Home({data}) {
     console.log("privacy" + JSON.stringify(data));
     return (
@@ -24,15 +33,13 @@ export const pageQuery = graphql`
       headline
       publicationDate(formatString: "Do. MMMM, YYYY")
       teaser {
-        fluid(maxWidth: 800, background: "rgb:000000") {
-          aspectRatio
-          src
-          srcSet
-          sizes
-          base64
-          srcSetWebp
-          srcSetWebp 
-        }
+          gatsbyImageData(
+            layout: FULL_WIDTH
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
+        description
+        title
       }
       body {
         childMarkdownRemark {

@@ -10,7 +10,8 @@ module.exports = {
     title: `air pussies`,
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
     {
       resolve: "gatsby-source-contentful",
       options: {

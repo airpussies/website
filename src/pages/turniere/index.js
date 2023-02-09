@@ -4,6 +4,15 @@ import Layout from "../../components/layout";
 import EntriesByYear from "../../components/reports/EntriesByYear";
 import {group_by} from "../../lib/util"
 
+export function Head() {
+  return (
+    <>
+      <body className={'has-navbar-fixed-top'}></body>
+      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+    </>
+  )
+}
+
 export default function NewsByYears({data}) {
   const nodes = group_by('year', data.allContentfulTurnierbericht.edges
     .map(edge => edge['node'])
