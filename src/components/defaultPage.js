@@ -1,5 +1,5 @@
 import React from "react";
-import Img from "gatsby-image/index";
+import {GatsbyImage, getImage} from "gatsby-plugin-image";
 
 export default function DefaultPage({data}) {
   const page = data.contentfulPages;
@@ -7,23 +7,27 @@ export default function DefaultPage({data}) {
   // teaser is optional
   let teaser;
   if (page !== null && page.teaser !== null) {
-    teaser = <div className="columns">
-      <figure className="column is-three-fifths is-offset-one-fifth image">
-        <Img alt={page.teaser.title + " : " + page.teaser.description} fluid={page.teaser.fluid}/>
-        <figcaption>{page.teaser.title + " : " + page.teaser.description}</figcaption>
-      </figure>
-    </div>
+    const dynamicImage = getImage(page.teaser)
+    teaser = <figure className={"image"}>
+      <GatsbyImage image={dynamicImage} alt={""}/>
+      <figcaption><em>{page.teaser.title}</em> — {page.teaser.description}</figcaption>
+    </figure>
   }
 
   return (
     <>
       <h1 className="is-1 title">{page.headline}</h1>
       {teaser}
-      <p className="is-small">letzte Aktualisierung {page.publicationDate} </p>
-      <div dangerouslySetInnerHTML={{
-        __html: page.body.childMarkdownRemark.html,
-      }}
-      />
+
+      <section className={"pt-5"}>
+        <div className="columns is-centered">
+          <div className="column is-full-mobile is-four-fifths-desktop">
+            <div dangerouslySetInnerHTML={{
+              __html: page.body.childMarkdownRemark.html
+            }} />
+          </div>
+        </div>
+      </section>
     </>
   )
 }

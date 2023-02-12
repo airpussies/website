@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react'
 import {Link, navigate} from 'gatsby'
 import logo from '../../static/disc.png'
-import {Helmet} from 'react-helmet'
 import {UserContext} from "../context/UserProvider";
 import firebase from "gatsby-plugin-firebase";
 
@@ -54,10 +53,9 @@ function Navbar() {
     {label: "Home", path: '/'},
     {label: "News", path: '/news/'},
     {label: "Turniere", path: '/turniere/'},
-    {label: "Was ist Ultimate Frisbee", path: '/was_ist_ultimate/'},
-    {label: "Registrieren", path: '/signup/', hide: isLoggedIn},
-    {label: "Einloggen", path: '/signin/', hide: isLoggedIn},
-    {label: "Profil", path: '/profile/', hide: !isLoggedIn},
+    {label: "Was ist Ultimate?", path: '/was_ist_ultimate/'},
+    {label: "Login", path: '/users/signin/', hide: isLoggedIn},
+    {label: "Profil", path: '/users/profile/', hide: !isLoggedIn},
   ];
 
   const navItems = items.map((entry, i) => {
@@ -95,11 +93,6 @@ function Navbar() {
           </div>
         </div>
       </div>
-      <Helmet
-        bodyAttributes={{
-          class: 'has-navbar-fixed-top'
-        }}
-      />
     </nav>
   );
 }

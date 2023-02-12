@@ -3,6 +3,16 @@ import Layout from "../components/layout";
 import {graphql} from "gatsby"
 import DefaultPage from "../components/defaultPage";
 
+export function Head() {
+  return (
+    <>
+      <title>{`air pussies — Kontakt`}</title>
+      <body className={'has-navbar-fixed-top'}></body>
+      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+    </>
+  )
+}
+
 export default function Home({data}) {
     console.log("privacy" + JSON.stringify(data));
     return (
@@ -15,25 +25,17 @@ export default function Home({data}) {
 
 export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     contentfulPages(slug: { eq: "contact" }) {
       headline
       publicationDate(formatString: "MMMM Do, YYYY")
       teaser {
-        fluid(maxWidth: 1180, background: "rgb:000000") {
-          aspectRatio
-          src
-          srcSet
-          sizes
-          base64
-          tracedSVG
-          srcSetWebp
-          srcSetWebp 
-        }
+          gatsbyImageData(
+            layout: FULL_WIDTH
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
+        description
+        title
       }
       body {
         childMarkdownRemark {

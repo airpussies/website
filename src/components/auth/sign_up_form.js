@@ -17,7 +17,7 @@ function SignupForm() {
     try {
       const {user} = await firebase.auth().createUserWithEmailAndPassword(email, password);
       await generateUserDocument(user, {displayName})
-      navigate("/profile");
+      navigate("/users/profile");
     } catch (error) {
       const {code, message} = error;
       setError(`Error signing up with email and password. (${code})`);
@@ -114,7 +114,7 @@ function SignupForm() {
         </div>
       </form>
       <p>
-        Bereits registriert? <Link to="/signin" className="">Einloggen</Link>
+        Bereits registriert? <Link to="/users/signin" className="">Einloggen</Link>
       </p>
     </>
   )

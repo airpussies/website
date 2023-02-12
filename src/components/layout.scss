@@ -5,7 +5,7 @@ $primary: #349663;
 $link: #de1c35;
 
 
-//$body-font-size: 1.0em;
+$body-font-size: 1.15em;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
@@ -43,6 +43,7 @@ section {
 @import "~bulma/sass/components/media";
 @import "~bulma/sass/components/card";
 @import "~bulma/sass/components/message";
+@import "~bulma/sass/components/breadcrumb";
 @import "~bulma/sass/layout/all";
 
 

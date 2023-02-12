@@ -3,6 +3,19 @@ import Layout from "../components/layout";
 import {graphql} from "gatsby"
 import DefaultPage from "../components/defaultPage";
 
+export function Head({ location, params, data, pageContext }) {
+  return (
+    <>
+      <title>{`air pussies — ${data.contentfulPages.headline}`}</title>
+      <meta name="twitter:url" content={`https://www.airpussies.berlin${location.pathname}`} />
+      <meta property="og:title" content={`air pussies — ${data.contentfulPages.headline}`} />
+      <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`} />
+      <body className={'has-navbar-fixed-top'}></body>
+      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+    </>
+  );
+}
+
 export default function Home({data}) {
     return (
         <Layout>
@@ -14,25 +27,17 @@ export default function Home({data}) {
 
 export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     contentfulPages(slug: { eq: "imprint" }) {
       headline
       publicationDate(formatString: "MMMM Do, YYYY")
       teaser {
-        fluid(maxWidth: 1180, background: "rgb:000000") {
-          aspectRatio
-          src
-          srcSet
-          sizes
-          base64
-          tracedSVG
-          srcSetWebp
-          srcSetWebp 
-        }
+        gatsbyImageData(
+            layout: FULL_WIDTH
+            placeholder: BLURRED
+            formats: [AUTO, WEBP, AVIF]
+          )
+        description
+        title
       }
       body {
         childMarkdownRemark {
