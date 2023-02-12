@@ -1,22 +1,23 @@
 import React from "react";
-import Layout from "../components/layout"
-import SignInForm from "../components/auth/sign_in_form"
+import Layout from "../../components/layout";
+import ProfileForm from "../../components/auth/profile_form";
 
 export function Head() {
   return (
     <>
+      <title>{`air pussies — Users: Mein Profil`}</title>
       <body className={'has-navbar-fixed-top'}></body>
       <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
     </>
   )
 }
 
-function Signin() {
+const Profile = () => {
   return (
     <Layout>
-      <SignInForm/>
+      <ProfileForm/>
     </Layout>
-  )
+  );
 }
 
-export default Signin;
+export default Profile;

@@ -6,6 +6,7 @@ import DefaultPage from "../components/defaultPage";
 export function Head() {
   return (
     <>
+      <title>{`air pussies — Linksammlung`}</title>
       <body className={'has-navbar-fixed-top'}></body>
       <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
     </>
@@ -24,11 +25,6 @@ export default function Home({data}) {
 
 export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     contentfulPages(slug: { eq: "links" }) {
       headline
       publicationDate(formatString: "MMMM Do, YYYY")

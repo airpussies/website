@@ -1,37 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {graphql, StaticQuery} from 'gatsby'
 import Header from './header'
 import './layout.scss'
 import Footer from "./footer";
 import UserProvider from "../context/UserProvider";
 
-const Layout = ({children}) => (
-  <StaticQuery
-    query={graphql`
-      query SiteTitleQuery {
-        site {
-          siteMetadata {
-            title
-          }
-        }
-      }
-    `}
-    render={data => (
-      <UserProvider>
-        <Header siteTitle={data.site.siteMetadata.title}/>
-        <section className="section">
-          <div className="container">
-            <div className="content">
-              {children}
-            </div>
-          </div>
-        </section>
-        <Footer/>
-      </UserProvider>
-    )}
-  />
-)
+const Home = <span className="icon is-small"><i className="fas fa-home" aria-hidden="true"></i></span>;
+
+const Layout = ({children, bc}) => {
+  let breadcrumb = <></>;
+  if (bc) {
+    breadcrumb = bc.map((item, i) => <li className={i + 1 === bc.length ? 'is-active' : ''}>{'Home' === item.label ? Home : <></>}<a href={item.href}>{item.label}</a></li>)
+    breadcrumb = <nav className="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+      <ul>
+        {breadcrumb}
+      </ul>
+    </nav>;
+  }
+  return <UserProvider>
+    <Header/>
+    <section className="section">
+      <div className="container">
+        {breadcrumb}
+        <div className="content">
+          {children}
+        </div>
+      </div>
+    </section>
+    <Footer/>
+  </UserProvider>;
+}
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,

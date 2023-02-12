@@ -1,20 +1,30 @@
-import React from "react"
+import React from "react";
 import Layout from "../components/layout";
-import {graphql, Link} from "gatsby"
+import {graphql, Link} from "gatsby";
 import DefaultPage from "../components/defaultPage";
 import News from "../components/reports/news";
 import Report from "../components/reports/report";
 
-export function Head({ location, params, data, pageContext }) {
+export function Head({location, params, data, pageContext}) {
+  const schemaData = JSON.stringify({
+    "@context": "https://schema.org/",
+    "@type": "WebPage",
+    "name": "air pussies — Berlin Ultimate Frissbee club ",
+    "datePublished": data.contentfulPages.updatedAt,
+    "description": "Web Page der air pussies, Ultimate Frisbee in Berlin. Abitioniert oder Anfänger, jeder ist Willkommen!"
+  }, null, 2);
+
   return (
     <>
-      <title>air pussies — Berliner Ultimate Frisbee Verein</title>
-      <meta name="description" content="Ultimate Frisbee, Training, anfängerfreundlich, ambitioniert, Berlin, Spirit of the Game, Offen für alle"/>
-      <meta property="og:title" content="air pussies Berlin Ultimate" />
+      <title>air pussies — Berliner Ultimate Frisbee Verein — Startseite</title>
+      <meta name="description"
+            content="Web Page der air pussies, Ultimate Frisbee in Berlin. Abitioniert oder Anfänger, jeder ist Willkommen!"/>
+      <meta property="og:title" content="air pussies Berlin Ultimate"/>
       <body className={'has-navbar-fixed-top'}></body>
       <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+      <script type="application/ld+json">{schemaData}</script>
     </>
-  )
+  );
 }
 
 export default function Home({data}) {
@@ -23,15 +33,17 @@ export default function Home({data}) {
       // parse date: str -> date
       node['publicationDate'] = new Date(node['publicationDate']);
       return node;
-    })
+    });
   const reports = data.allContentfulTurnierbericht.edges.map(edge => edge['node'])
     .map(node => {
       // parse date: str -> date
       node['date'] = new Date(node['date']);
       return node;
-    })
+    });
   return (
-    <Layout>
+    <Layout bc={[
+      {label: "Home", href: '#'},
+    ]}>
       <DefaultPage data={data}/>
 
       <div className="columns">
@@ -57,20 +69,16 @@ export default function Home({data}) {
         </div>
       </div>
     </Layout>
-  )
+  );
 }
 
 
 export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     contentfulPages(slug: { eq: "home" }) {
       headline
-      publicationDate(formatString: "MMMM Do, YYYY")
+      publicationDate: updatedAt(formatString: "MMMM Do, YYYY")
+      updatedAt
       teaser {
           gatsbyImageData(
             layout: FULL_WIDTH
@@ -88,7 +96,7 @@ export const pageQuery = graphql`
     }
     
     # n news, ordered by pub date (newest first)
-    allContentfulNews(limit: 65, sort: {fields: publicationDate, order: DESC}) {
+    allContentfulNews(limit: 5, sort: {fields: publicationDate, order: DESC}) {
       edges {
         node {
           year: publicationDate(formatString: "YYYY")
@@ -102,7 +110,7 @@ export const pageQuery = graphql`
       }
     }
     
-    # n reportes, ordered by date (newest first)
+    # n reports, ordered by date (newest first)
     allContentfulTurnierbericht(limit: 5, sort: {fields: date, order: DESC}) {
     edges {
       node {
@@ -113,9 +121,8 @@ export const pageQuery = graphql`
         division
         fieldType
         location
+        }
       }
     }
   }
-    
-  }
-`
+`;

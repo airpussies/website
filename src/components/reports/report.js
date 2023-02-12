@@ -17,7 +17,7 @@ export default class Report extends React.Component {
     const formattedDate = new Intl.DateTimeFormat('de', {
       year: 'numeric',
       month: 'long',
-      day: '2-digit'
+      day: 'numeric'
     }).format(date)
     return (
       <div className={"box"}>

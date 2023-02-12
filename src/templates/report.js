@@ -5,9 +5,21 @@ import {graphql} from "gatsby";
 import ReportTags from "../components/reports/reportTags";
 import Turnierverwaltung from "../components/tv/turnierverwaltung";
 
-export function Head() {
+export function Head({ location, data }) {
+  const news = data.contentfulTurnierbericht;
+  const {
+    title,
+    date,
+    fieldType,
+    division
+  } = news;
   return (
     <>
+      <title>{`air pussies —  Turnier — ${title}`}</title>
+      <meta name="description" content={`Ultimate Turnier ${title} am ${date} auf ${fieldType} in ${news.location}, Division ${division}`}/>
+      <meta name="twitter:url" content={`https://www.airpussies.berlin${location.pathname}`} />
+      <meta property="og:title" content={`air pussies — Turnier — ${data.contentfulTurnierbericht.title}`} />
+      <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`} />
       <body className={'has-navbar-fixed-top'}></body>
       <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
     </>
@@ -53,7 +65,11 @@ class ReportTemplate extends React.Component {
       </section>;
     }
     return (
-      <Layout>
+      <Layout bc={[
+        {label: "Home", href: '/'},
+        {label: "Turiere", href: '/turniere/'},
+        {label: title, href: '#'}
+      ]}>
         <h1 className="is-1 title">{title}</h1>
         <ReportTags date={date} location={location} fieldType={fieldType} division={division}/>
         <div className="wrapper">
@@ -73,11 +89,6 @@ export default ReportTemplate;
 
 export const pageQuery = graphql`
   query ReportBySlug($slug: String!) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     contentfulTurnierbericht(slug: {eq: $slug}) {
       year: date(formatString: "Y")
       slug

@@ -4,11 +4,18 @@ import Layout from "../../components/layout";
 import EntriesByYear from "../../components/reports/EntriesByYear";
 import {group_by} from "../../lib/util"
 
-export function Head() {
+export function Head({ location, params, data, pageContext }) {
   return (
     <>
-      <body className={'has-navbar-fixed-top'}></body>
-      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+      <>
+        <title>{`air pussies — alle Turniere`}</title>
+        <meta name="twitter:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
+        <meta property="og:title" content={`air pussies — alle Turniere`}/>
+        <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
+        <body className={'has-navbar-fixed-top'}></body>
+        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+      </>
+
     </>
   )
 }
@@ -24,7 +31,10 @@ export default function NewsByYears({data}) {
     .sort((a, b) => a['date'] < b['date'] ? 1 : -1)
   );
   return (
-    <Layout>
+    <Layout bc={[
+      {label: "Home", href: '/'},
+      {label: "Turniere", href: '#'},
+    ]}>
       <h1 className="is-1 title">Turnierhistorie</h1>
       {nodes.groups.sort().reverse().map((year, i) =>
         <EntriesByYear type={"report"} year={year} items={nodes.entries[year]} key={i}/>

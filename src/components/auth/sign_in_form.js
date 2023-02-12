@@ -84,7 +84,7 @@ const SignInForm = () => {
         </div>
 
       </form>
-      <p><Link className="" to="/passwordreset">Passwort vergessen?</Link> Oder noch keinen Account? <Link className="" to="/signup">Registrieren</Link></p>
+      <p><Link className="" to="/users/passwordreset">Passwort vergessen?</Link> Oder noch keinen Account? <Link className="" to="/users/signup">Registrieren</Link></p>
     </>
   );
 };

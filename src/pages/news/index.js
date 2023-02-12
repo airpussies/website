@@ -4,7 +4,7 @@ import Layout from "../../components/layout";
 import EntriesByYear from "../../components/reports/EntriesByYear";
 import {group_by} from "../../lib/util"
 
-export function Head({ location, params, data, pageContext }) {
+export function Head({ location }) {
   return (
     <>
       <>
@@ -30,7 +30,10 @@ export default function NewsByYears({data}) {
     .sort((a, b) => a['publicationDate'] < b['publicationDate'] ? 1 : -1)
   );
   return (
-    <Layout>
+    <Layout bc={[
+      {label: "Home", href: '/'},
+      {label: "News", href: '#'},
+    ]}>
       <h1 className="is-1 title">Turnierhistorie</h1>
       {nodes.groups.sort().reverse().map((year, i) =>
         <EntriesByYear type={"news"} year={year} items={nodes.entries[year]} key={i}/>
@@ -46,7 +49,6 @@ export const pageQuery = graphql`query {
         year: publicationDate(formatString: "YYYY")
         publicationDate
         slug
-        id
         headline
         author
       }

@@ -64,7 +64,7 @@ const PasswordResetForm = () => {
           </p>
         </div>
       </form>
-      <p><Link to="/signin" className="is-link">&larr; Zurück zum Login</Link></p>
+      <p><Link to="/users/signin" className="is-link">&larr; Zurück zum Login</Link></p>
     </div>
   )
 }
