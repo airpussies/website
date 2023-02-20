@@ -67,7 +67,7 @@ class ReportTemplate extends React.Component {
     return (
       <Layout bc={[
         {label: "Home", href: '/'},
-        {label: "Turiere", href: '/turniere/'},
+        {label: "Turniere", href: '/turniere/'},
         {label: title, href: '#'}
       ]}>
         <h1 className="is-1 title">{title}</h1>
@@ -92,7 +92,7 @@ export const pageQuery = graphql`
     contentfulTurnierbericht(slug: {eq: $slug}) {
       year: date(formatString: "Y")
       slug
-      date(formatString: "DD.MM.YYYY")
+      date
       fieldType
       location
       title

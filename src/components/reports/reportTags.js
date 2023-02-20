@@ -2,18 +2,23 @@ import React from "react";
 import Division from "./division";
 
 const ReportTags = (props) => {
-
   const date = props.date;
   const location = props.location;
   const fieldType = props.fieldType;
   const division = props.division;
+
+  const formattedDate = new Intl.DateTimeFormat('de', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(new Date(date));
 
   return (
     <div className="field is-grouped is-grouped-multiline">
       <div className="control">
         <div className="tags has-addons">
           <span className="tag is-dark">Datum</span>
-          <span className="tag is-primary">{date}</span>
+          <span className="tag is-primary">{formattedDate}</span>
         </div>
       </div>
       <div className="control">
@@ -35,6 +40,6 @@ const ReportTags = (props) => {
         </div>
       </div>
     </div>);
-}
+};
 
 export default ReportTags;

@@ -14,15 +14,10 @@ export default class Report extends React.Component {
       division,
       location
     } = report
-    const formattedDate = new Intl.DateTimeFormat('de', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }).format(date)
     return (
       <div className={"box"}>
         <dt><Link to={`/turniere/${year}/${slug}`}><h3 className={"subtitle"}>{title}</h3></Link></dt>
-        <dd><ReportTags date={formattedDate} location={location} fieldType={fieldType} division={division}/></dd>
+        <dd><ReportTags date={date} location={location} fieldType={fieldType} division={division}/></dd>
       </div>
     );
 
