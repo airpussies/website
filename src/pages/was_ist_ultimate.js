@@ -17,7 +17,6 @@ export function Head({ location, params, data, pageContext }) {
 }
 
 export default function Home({data}) {
-    console.log("privacy" + JSON.stringify(data));
     return (
         <Layout bc={[
           {label: "Home", href: '/'},

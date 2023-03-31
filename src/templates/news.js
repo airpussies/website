@@ -22,7 +22,7 @@ export function Head({location, params, data, pageContext}) {
     },
     "headline": `air pussies — Turniere — ${headline}`,
     "genre": "ultimate frisbee club",
-    "keywords":"ultimate frisbee berlin",
+    "keywords": "ultimate frisbee berlin",
     "datePublished": data.contentfulNews.createdAt,
     "dateCreated": data.contentfulNews.createdAt,
     "dateModified": data.contentfulNews.updatedAt,
@@ -58,7 +58,6 @@ class NewsTemplate extends React.Component {
     } = news;
 
     let maybeTeaser;
-    console.log(teaser);
     if (teaser !== null) {
       const dynamicImage = getImage(teaser);
       maybeTeaser = <figure className={"image"}>
@@ -74,7 +73,7 @@ class NewsTemplate extends React.Component {
     }).format(new Date(publicationDate));
 
     let timeToRead = body.childrenMarkdownRemark[0].timeToRead;
-    return ([
+    return (
       <Layout bc={[
         {label: "Home", href: '/'},
         {label: "News", href: '/news/'},
@@ -105,27 +104,27 @@ class NewsTemplate extends React.Component {
                 <span className="tag is-success is-light">{timeToRead} {timeToRead > 1 ? 'Minuten' : 'Minute'}</span>
               </div>
             </div>
-            </div>
+          </div>
 
-            {maybeTeaser}
+          {maybeTeaser}
 
-            <section className={"pt-5"}>
-              <div className="columns is-centered">
-                <div className="column is-four-fifths-mobile is-two-thirds-tablet">
-                  <div dangerouslySetInnerHTML={{__html: body.childMarkdownRemark.html}}/>
-                </div>
+          <section className={"pt-5"}>
+            <div className="columns is-centered">
+              <div className="column is-four-fifths-mobile is-two-thirds-tablet">
+                <div dangerouslySetInnerHTML={{__html: body.childMarkdownRemark.html}}/>
               </div>
-            </section>
+            </div>
+          </section>
         </article>
       </Layout>
-  ]);
+    );
   }
-  }
+}
 
-  NewsTemplate.propTypes = propTypes;
-  export default NewsTemplate;
+NewsTemplate.propTypes = propTypes;
+export default NewsTemplate;
 
-  export const pageQuery = graphql`
+export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
     contentfulNews(slug: { eq: $slug }) {
       headline

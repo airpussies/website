@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {generateUserDocument} from "../lib/firebase_user";
-import firebase from "gatsby-plugin-firebase"
+import firebase from "gatsby-plugin-firebase";
 
 export const UserContext = React.createContext({user: null});
 
@@ -13,17 +13,15 @@ const UserProvider = ({children}) => {
       (async () => {
         const user = await generateUserDocument(userAuth);
         setUser(user);
-        setIsLoading(false)
+        setIsLoading(false);
       })();
     });
   }, []);
 
   return (
-    <UserContext.Provider
-      value={{user, isLoading}}
-    >
+    <UserContext.Provider value={{user, isLoading}}>
       {children}
     </UserContext.Provider>
   );
-}
+};
 export default UserProvider;
