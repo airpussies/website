@@ -10,7 +10,7 @@ const Home = <span className="icon is-small"><i className="fas fa-home" aria-hid
 const Layout = ({children, bc}) => {
   let breadcrumb = <></>;
   if (bc) {
-    breadcrumb = bc.map((item, i) => <li className={i + 1 === bc.length ? 'is-active' : ''}>{'Home' === item.label ? Home : <></>}<a href={item.href}>{item.label}</a></li>)
+    breadcrumb = bc.map((item, i) => <li key={item.label} className={i + 1 === bc.length ? 'is-active' : ''}>{'Home' === item.label ? Home : <></>}<a href={item.href}>{item.label}</a></li>)
     breadcrumb = <nav className="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
       <ul>
         {breadcrumb}

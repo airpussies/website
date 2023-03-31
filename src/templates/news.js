@@ -9,7 +9,6 @@ export function Head({location, params, data, pageContext}) {
   const {
     headline,
     body,
-    publicationDate,
     author
   } = news;
   let description = body.childrenMarkdownRemark[0].rawMarkdownBody.match(/^(.*?)[.?!]\s/);
@@ -21,7 +20,12 @@ export function Head({location, params, data, pageContext}) {
       "@type": "Person",
       "name": author
     },
-    "datePublished": publicationDate,
+    "headline": `air pussies — Turniere — ${headline}`,
+    "genre": "ultimate frisbee club",
+    "keywords":"ultimate frisbee berlin",
+    "datePublished": data.contentfulNews.createdAt,
+    "dateCreated": data.contentfulNews.createdAt,
+    "dateModified": data.contentfulNews.updatedAt,
     "description": description ? description[0] : headline
   }, null, 2);
   return (
@@ -127,6 +131,8 @@ class NewsTemplate extends React.Component {
       headline
       author
       publicationDate
+      updatedAt
+      createdAt
       teaser {
         gatsbyImageData(
           layout: FULL_WIDTH

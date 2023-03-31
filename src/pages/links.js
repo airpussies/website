@@ -14,7 +14,6 @@ export function Head() {
 }
 
 export default function Home({data}) {
-    console.log("privacy" + JSON.stringify(data));
     return (
         <Layout>
             <DefaultPage data={data}/>

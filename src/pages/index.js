@@ -9,8 +9,13 @@ export function Head({location, params, data, pageContext}) {
   const schemaData = JSON.stringify({
     "@context": "https://schema.org/",
     "@type": "WebPage",
-    "name": "air pussies — Berlin Ultimate Frissbee club ",
-    "datePublished": data.contentfulPages.updatedAt,
+    "name": "air pussies — Berlin Ultimate Frissbee club",
+    "headline": "air pussies — Berliner Ultimate Frisbee Verein — Startseite",
+    "genre": "ultimate frisbee club",
+    "keywords":"ultimate frisbee berlin",
+    "datePublished": data.contentfulPages.createdAt,
+    "dateCreated": data.contentfulPages.createdAt,
+    "dateModified": data.contentfulPages.updatedAt,
     "description": "Web Page der air pussies, Ultimate Frisbee in Berlin. Abitioniert oder Anfänger, jeder ist Willkommen!"
   }, null, 2);
 
@@ -79,6 +84,7 @@ export const pageQuery = graphql`
       headline
       publicationDate: updatedAt(formatString: "MMMM Do, YYYY")
       updatedAt
+      createdAt
       teaser {
           gatsbyImageData(
             layout: FULL_WIDTH
