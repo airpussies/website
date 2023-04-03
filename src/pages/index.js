@@ -102,7 +102,7 @@ export const pageQuery = graphql`
     }
     
     # n news, ordered by pub date (newest first)
-    allContentfulNews(limit: 5, sort: {fields: publicationDate, order: DESC}) {
+    allContentfulNews(limit: 5, sort: {publicationDate: DESC}) {
       edges {
         node {
           year: publicationDate(formatString: "YYYY")
@@ -117,7 +117,7 @@ export const pageQuery = graphql`
     }
     
     # n reports, ordered by date (newest first)
-    allContentfulTurnierbericht(limit: 5, sort: {fields: date, order: DESC}) {
+    allContentfulTurnierbericht(limit: 5, sort: {date: DESC}) {
     edges {
       node {
         year: date(formatString: "YYYY")

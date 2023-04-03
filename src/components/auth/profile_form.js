@@ -52,7 +52,7 @@ const ProfileForm = () => {
       setDetail(null)
       try {
         // console.log("calling updateUserDocument(" + displayName + ")")
-        const newDoc = await updateUserDocument(user, {displayName, secret, sex, teams: [...myTeams]})
+        await updateUserDocument(user, {displayName, secret, sex, teams: [...myTeams]})
         // console.log("done updateUserDocument." + JSON.stringify(newDoc));
         setMessage("Erfolgreich gespeichert.");
         window.setTimeout(() => {

@@ -3,12 +3,15 @@
  *
  * See: https://www.gatsbyjs.org/docs/gatsby-config/
  */
-const dotenv = require("dotenv").config()
+const siteUrl = process.env.URL || `https://www.airpussies.berlin`;
+
 module.exports = {
-  pathPrefix: "/website",
   siteMetadata: {
     title: `air pussies`,
+    siteUrl: siteUrl,
+    description: `Website des Ultimate Frisbee Teams "air pussies"`
   },
+  pathPrefix: "/website",
   plugins: [
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
@@ -22,7 +25,7 @@ module.exports = {
       }
     },
     `gatsby-transformer-remark`,
-    'gatsby-plugin-sharp',
+    `gatsby-plugin-sharp`,
     `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -39,12 +42,12 @@ module.exports = {
           {
             src: `/favicons/android-chrome-192x192.png`,
             sizes: `192x192`,
-            type: `image/png`,
+            type: `image/png`
           },
           {
             src: `/favicons/android-chrome-512x512.png`,
             sizes: `512x512`,
-            type: `image/png`,
+            type: `image/png`
           }
         ]
       }
@@ -66,6 +69,78 @@ module.exports = {
           appId: "1:116633660030:web:f51c3f1964dd121a66c62f"
         }
       }
-    }
-  ]
-}
+    },
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: "gatsby-plugin-sitemap",
+      options: {
+        query: `
+        {
+          allContentfulNews {
+            group(field: {contentful_id: SELECT}) {
+              nodes {
+                slug
+                updatedAt
+                year: publicationDate(formatString: "Y")
+              }
+            }
+          }
+          allContentfulPages {
+            group(field: {contentful_id: SELECT}) {
+              nodes {
+                slug
+                updatedAt
+              }
+            }
+          }
+      }`,
+        resolveSiteUrl: () => siteUrl,
+        resolvePages:
+          ({
+             allContentfulNews: { group: news },
+             allContentfulPages: { group: pages }
+           }) => {
+            const newsEntries = news.map((page) => {
+              const news = page.nodes[0];
+              const uri = `/news/${news.year}/${news.slug}/`;
+              return { path: uri, lastmod: news.updatedAt };
+            });
+            const pageEntries = pages.map((page) => {
+              const x = page.nodes[0];
+              switch (x.slug) {
+                case "home":
+                  return { path: "/", lastmod: x.updatedAt };
+                case "contact":
+                  return { path: "/kontakt/", lastmod: x.updatedAt };
+                case "imprint":
+                  return { path: "/impressum/", lastmod: x.updatedAt };
+                case "ultimate":
+                  return { path: "/was_ist_ultimate/", lastmod: x.updatedAt };
+                case "links":
+                  return { path: "/links/", lastmod: x.updatedAt };
+                case "privacy":
+                  return { path: "/datenschutz/", lastmod: x.updatedAt };
+                default:
+                  return { path: x.slug, lastmod: x.updatedAt };
+              }
+            });
+            console.log({ pages: [...pageEntries, ...newsEntries] });
+            return [...pageEntries, ...newsEntries];
+          },
+        serialize:
+          ({
+             path,
+             lastmod,
+             changefreq,
+             priority
+           }) => {
+            return {
+              url: `${siteUrl}${path}`,
+              lastmod,
+              changefreq,
+              priority
+            };
+          }
+      }
+    }]
+};

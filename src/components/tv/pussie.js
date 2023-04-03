@@ -229,6 +229,8 @@ export const Pussies = (props) => {
                 return 3;
               case 'nope':
                 return 4;
+              default:
+                return 4;
             }
           };
           return state_to_number(d1.state) - state_to_number(d2.state) || n1.localeCompare(n2);
