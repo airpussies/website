@@ -16,7 +16,7 @@ export default class Report extends React.Component {
     } = report
     return (
       <div className={"box"}>
-        <dt><Link to={`/turniere/${year}/${slug}`}><h3 className={"subtitle"}>{title}</h3></Link></dt>
+        <dt><Link to={`/turniere/${year}/${slug.toLowerCase()}`}><h3 className={"subtitle"}>{title}</h3></Link></dt>
         <dd><ReportTags date={date} location={location} fieldType={fieldType} division={division}/></dd>
       </div>
     );

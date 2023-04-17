@@ -28,9 +28,9 @@ exports.createPages = ({graphql, actions}) => {
       const newsTemplate = path.resolve('./src/templates/news.js')
 
       _.each(result.data.allContentfulNews.edges, edge => {
-        console.log(`createPage(news, ${edge.node.year}/${edge.node.slug})`)
+        // console.log(`createPage(news, ${edge.node.year}/${edge.node.slug.toLowerCase()})`)
         createPage({
-          path: `/news/${edge.node.year}/${edge.node.slug}/`,
+          path: `/news/${edge.node.year}/${edge.node.slug.toLowerCase()}/`,
           component: slash(newsTemplate),
           context: {
             slug: edge.node.slug
@@ -61,9 +61,9 @@ exports.createPages = ({graphql, actions}) => {
           const newsTemplate = path.resolve('./src/templates/report.js')
 
           _.each(result.data.allContentfulTurnierbericht.edges, edge => {
-            console.log(`createPage(report, ${edge.node.year}/${edge.node.slug})`)
+            // console.log(`createPage(report, ${edge.node.year}/${edge.node.slug.toLowerCase()})`)
             createPage({
-              path: `/turniere/${edge.node.year}/${edge.node.slug}/`,
+              path: `/turniere/${edge.node.year}/${edge.node.slug.toLowerCase()}/`,
               component: slash(newsTemplate),
               context: {
                 slug: edge.node.slug

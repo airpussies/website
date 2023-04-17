@@ -18,7 +18,7 @@ export default class News extends React.Component {
     }).format(publicationDate)
     return (
       <div className={"box"}>
-        <dt><Link to={`/news/${year}/${slug}`}><h3 className={"subtitle"}>{headline}</h3></Link></dt>
+        <dt><Link to={`/news/${year}/${slug.toLowerCase()}`}><h3 className={"subtitle"}>{headline}</h3></Link></dt>
         <dd>von {author}, {formattedDate}</dd>
       </div>
     );
