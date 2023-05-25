@@ -103,7 +103,7 @@ module.exports = {
             const newsEntries = news.map((page) => {
               const news = page.nodes[0];
               const uri = `/news/${news.year}/${news.slug}/`;
-              return { path: uri, lastmod: news.updatedAt };
+              return { path: uri.toLowerCase(), lastmod: news.updatedAt };
             });
             const pageEntries = pages.map((page) => {
               const x = page.nodes[0];
