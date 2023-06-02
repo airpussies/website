@@ -21,9 +21,10 @@ export function Head({location, params, data, pageContext}) {
 
   return (
     <>
-      <title>air pussies — Berliner Ultimate Frisbee Verein — Startseite</title>
-      <meta name="description"
-            content="Web Page der air pussies, Ultimate Frisbee in Berlin. Abitioniert oder Anfänger, jeder ist Willkommen!"/>
+      <title>air pussies — Berlin Ultimate Frisbee </title>
+      <meta name="description" content="Web Page der air pussies, Berlin Ultimate Frisbee."/>
+      <meta name={'keywords'} content={'air pussies, berlin, ultimate frisbee, sport team'}/>
+      <link rel="canonical" href="https://www.airpussies.berlin/" />
       <meta property="og:title" content="air pussies Berlin Ultimate"/>
       <body className={'has-navbar-fixed-top'}></body>
       <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>

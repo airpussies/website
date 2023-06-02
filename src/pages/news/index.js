@@ -9,6 +9,7 @@ export function Head({ location }) {
     <>
       <>
         <title>{`air pussies — alle News`}</title>
+        <link rel="canonical" href={`https://www.airpussies.berlin${location.pathname}`}/>
         <meta name="twitter:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
         <meta property="og:title" content={`air pussies — alle News`}/>
         <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`}/>

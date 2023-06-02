@@ -7,6 +7,7 @@ export function Head({ location, params, data, pageContext }) {
   return (
     <>
       <title>{`air pussies — ${data.contentfulPages.headline}`}</title>
+      <link rel="canonical" href={`https://www.airpussies.berlin${location.pathname}`} />
       <meta name="twitter:url" content={`https://www.airpussies.berlin${location.pathname}`} />
       <meta property="og:title" content={`air pussies — ${data.contentfulPages.headline}`} />
       <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`} />

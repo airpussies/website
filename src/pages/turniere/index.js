@@ -9,6 +9,7 @@ export function Head({ location, params, data, pageContext }) {
     <>
       <>
         <title>{`air pussies — alle Turniere`}</title>
+        <link rel="canonical" href={`https://www.airpussies.berlin${location.pathname}`}/>
         <meta name="twitter:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
         <meta property="og:title" content={`air pussies — alle Turniere`}/>
         <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`}/>

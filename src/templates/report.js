@@ -17,6 +17,7 @@ export function Head({ location, data }) {
     <>
       <title>{`air pussies —  Turnier — ${title}`}</title>
       <meta name="description" content={`Ultimate Turnier ${title} am ${date} auf ${fieldType} in ${news.location}, Division ${division}`}/>
+      <link rel="canonical" href={`https://www.airpussies.berlin${location.pathname}`} />
       <meta name="twitter:url" content={`https://www.airpussies.berlin${location.pathname}`} />
       <meta property="og:title" content={`air pussies — Turnier — ${data.contentfulTurnierbericht.title}`} />
       <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`} />
