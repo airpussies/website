@@ -16,13 +16,13 @@ export function Head({location, params, data, pageContext}) {
     "datePublished": data.contentfulPages.createdAt,
     "dateCreated": data.contentfulPages.createdAt,
     "dateModified": data.contentfulPages.updatedAt,
-    "description": "Web Page der air pussies, Ultimate Frisbee in Berlin. Abitioniert oder Anfänger, jeder ist Willkommen!"
+    "description": "Web Site der air pussies, Ultimate Frisbee in Berlin."
   }, null, 2);
 
   return (
     <>
       <title>air pussies — Berlin Ultimate Frisbee </title>
-      <meta name="description" content="Web Page der air pussies, Berlin Ultimate Frisbee."/>
+      <meta name="description" content="Web Site der air pussies, Berlin Ultimate Frisbee."/>
       <meta name={'keywords'} content={'air pussies, berlin, ultimate frisbee, sport team'}/>
       <link rel="canonical" href="https://www.airpussies.berlin/" />
       <meta property="og:title" content="air pussies Berlin Ultimate"/>

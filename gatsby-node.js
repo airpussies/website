@@ -61,7 +61,7 @@ exports.createPages = ({graphql, actions}) => {
           const newsTemplate = path.resolve('./src/templates/report.js')
 
           _.each(result.data.allContentfulTurnierbericht.edges, edge => {
-            // console.log(`createPage(report, ${edge.node.year}/${edge.node.slug.toLowerCase()})`)
+            // console.log(`createPage(report, ${edge.node.year}/${edge.node.slug})`)
             createPage({
               path: `/turniere/${edge.node.year}/${edge.node.slug.toLowerCase()}/`,
               component: slash(newsTemplate),
