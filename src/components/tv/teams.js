@@ -42,19 +42,21 @@ export const CreateTeam = (props) => {
     </div>
   </>;
 
-  return (props.missingTeams.length > 0 ? <>
-      <h3>Eines deiner Teams ist nicht dabei?</h3>
-      <div className="field">
-        <div className="control is-horizontal">
-          {teamsPicker}
-          <button className="button is-success is-small" onClick={() => props.addTeam(team)}>
+  return (props.missingTeams.length > 0 ? <div className={"pt-5"}>
+      <div className={"box is-full"}>
+        <h4 className={"is-4"}>Eines deiner Teams ist nicht dabei?</h4>
+        <div className="field">
+          <div className="control is-horizontal">
+            {teamsPicker}
+            <button className="button is-success is-small" onClick={() => props.addTeam(team)}>
                     <span className="icon is-small is-left">
-          <i className="fas fa-plus"/>
+          <i className="fas fa-plus" />
         </span>
-            <span>Team hinzufügen</span>
-          </button>
+              <span>Team hinzufügen</span>
+            </button>
+          </div>
         </div>
       </div>
-    </> : <></>
+    </div> : <></>
   );
 }

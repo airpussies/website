@@ -57,11 +57,9 @@ class ReportTemplate extends React.Component {
     let maybeDescription;
     if (description !== null && description.childMarkdownRemark.html !== '') {
       maybeDescription = <section className={"pt-5"}>
-        <div className="columns is-centered">
-          <div className="box column is-full-mobile is-four-fifths-desktop">
-            <div className="title">Turnierbeschreibung</div>
-            <p dangerouslySetInnerHTML={{__html: description.childMarkdownRemark.html}}/>
-          </div>
+        <div className="box column is-full">
+          <div className="title">Turnierbeschreibung</div>
+          <p dangerouslySetInnerHTML={{__html: description.childMarkdownRemark.html}}/>
         </div>
       </section>;
     }
@@ -77,7 +75,6 @@ class ReportTemplate extends React.Component {
           {maybeDescription}
           {maybeReport}
         </div>
-        <hr/>
         <h2 className="is-2">Turnierverwaltung</h2>
         <Turnierverwaltung event_id={`${year}_${slug}`}/>
       </Layout>

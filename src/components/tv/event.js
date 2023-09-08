@@ -147,7 +147,7 @@ export const Event = (props) => {
       {Object.entries(evnt.teams || {})
         .sort(([t1, v1],[t2, v2])=> t1.localeCompare(t2))
         .map(([team, value], i) =>
-        <div key={team}>
+        <div key={team} className={"box is-full"}>
           <h4 className="is-4">{team}</h4>
           <div className="field is-grouped is-grouped-multiline">
             <div className="control">

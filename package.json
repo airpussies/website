@@ -26,19 +26,19 @@
     "gatsby-plugin-manifest": "5.8.0",
     "gatsby-plugin-postcss": "6.8.0",
     "gatsby-plugin-sass": "^6.8.0",
-    "gatsby-plugin-sharp": "^5.8.1",
+    "gatsby-plugin-sharp": "^5.12.0",
     "gatsby-plugin-sitemap": "6.8.0",
     "gatsby-plugin-typography": "^5.8.0",
     "gatsby-source-contentful": "^8.8.0",
     "gatsby-source-filesystem": "5.8.0",
     "gatsby-transformer-remark": "^6.8.0",
     "lodash": "4.17.21",
-    "node-sass": "^8.0.0",
     "postcss": "8.4.21",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-head": "3.4.2",
-    "react-typography": "0.16.23"
+    "react-typography": "0.16.23",
+    "sass": "^1.66.1"
   },
   "devDependencies": {
     "gh-pages": "5.0.0",

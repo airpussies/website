@@ -216,7 +216,7 @@ export const Pussies = (props) => {
 
   return (
     <div>
-      <h4 className="is-4">Pussietagonisten</h4>
+      <h6 className="is-6">Pussietagonisten</h6>
       {Object.entries(current_team.pussies || {})
         .sort(([n1, d1], [n2, d2]) => {
           const state_to_number = (s) => {

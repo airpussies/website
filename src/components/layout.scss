@@ -2,18 +2,17 @@
 
 $primary: #349663;
 @import "~bulma/sass/utilities/_all.sass";
-$link: #de1c35;
+$link: findDarkColor($green);
 
-
-$body-font-size: 1.15em;
+$body-font-size: 1.2em;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
+$box-background-color: #f9f9f9;
 
-//$primary: hsl(141, 53%,  53%);
+$box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.6), 0 0px 0 1px rgba($scheme-invert, 0.02);
+$input-placeholder-color: $grey-darker;
+$body-line-height: 1.6;
 
-a {
-  text-shadow: none;
-}
 .wrapped {
   flex-wrap: wrap;
 }
@@ -50,4 +49,15 @@ section {
 .not_so_grey.input[disabled] {
   color: $text;
   background: $white-bis;
+}
+
+a {
+  text-shadow: $red;
+}
+.content section a {
+  background: findLightColor($green);
+  text-decoration: underline;
+}
+.content .box a {
+  text-decoration: none;
 }
