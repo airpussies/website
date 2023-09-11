@@ -49,16 +49,16 @@ class ReportTemplate extends React.Component {
 
     let maybeReport;
     if (null !== report && null !== report.childMarkdownRemark && null !== report.childMarkdownRemark.html && report.childMarkdownRemark.html !== '') {
-      maybeReport = <div>
-        <h2 className="subtitle is-2">Turnierberichte</h2>
+      maybeReport = <section className={"box pt-5 mt-5"}>
+        <h3 className="subtitle is-3">Turnierbericht</h3>
         <div dangerouslySetInnerHTML={{__html: report.childMarkdownRemark.html}}/>
-      </div>;
+      </section>;
     }
     let maybeDescription;
     if (description !== null && description.childMarkdownRemark.html !== '') {
       maybeDescription = <section className={"pt-5"}>
         <div className="box column is-full">
-          <div className="title">Turnierbeschreibung</div>
+          <h3 className="is-3">Turnierbeschreibung</h3>
           <p dangerouslySetInnerHTML={{__html: description.childMarkdownRemark.html}}/>
         </div>
       </section>;
