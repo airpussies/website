@@ -54,10 +54,7 @@ section {
 a {
   text-shadow: $red;
 }
-.content section a {
+section p > a {
   background: findLightColor($green);
   text-decoration: underline;
-}
-.content .box a {
-  text-decoration: none;
 }

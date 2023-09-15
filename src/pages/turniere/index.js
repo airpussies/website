@@ -36,7 +36,17 @@ export default function NewsByYears({data}) {
       {label: "Home", href: '/'},
       {label: "Turniere", href: '#'},
     ]}>
-      <h1 className="is-1 title">Turnierhistorie</h1>
+      <h1 className="is-1 title">Turniere</h1>
+      <div>
+        <p>
+          Hier findest du eine Auflistung aller Turniere, an denen wir teilgenommen hatten — oder zumindest versucht
+          haben, daran teilzunehmen. Hier findet ihr Informationen, die üblicherweise über die
+          <a href="https://list.uni-koblenz.de/mailman/listinfo/wurfpost"> Wurfpost (Mailingliste für den Frisbeesport)</a>
+          verbreitet werden. Der volle Funktionsumfang steht dir nach dem <a href={"/users/signin/"}>Login</a> zur Verfügung.
+        </p>
+        <p>Ältere Turniere, 2019 und früher, stammen zum Teil aus der archivierten, nicht mehr öffentlich
+          zugänglichen <a href={'http://web.archive.org/web/20180412015104/https://ap.djdahlem.de/'}>Webseite</a> und wurden hierher migriert.</p>
+      </div>
       {nodes.groups.sort().reverse().map((year, i) =>
         <EntriesByYear type={"report"} year={year} items={nodes.entries[year]} key={i}/>
       )}

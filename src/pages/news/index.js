@@ -35,7 +35,7 @@ export default function NewsByYears({data}) {
       {label: "Home", href: '/'},
       {label: "News", href: '#'},
     ]}>
-      <h1 className="is-1 title">Turnierhistorie</h1>
+      <h1 className="is-1 title">Berichte und Neuigkeiten</h1>
       {nodes.groups.sort().reverse().map((year, i) =>
         <EntriesByYear type={"news"} year={year} items={nodes.entries[year]} key={i}/>
       )}

@@ -93,12 +93,22 @@ module.exports = {
               }
             }
           }
+          allContentfulTurnierbericht {
+            group(field: {contentful_id: SELECT}) {
+              nodes {
+                slug
+                year: date(formatString: "Y")
+                updatedAt
+              }
+            }
+          }
       }`,
         resolveSiteUrl: () => siteUrl,
         resolvePages:
           ({
              allContentfulNews: { group: news },
-             allContentfulPages: { group: pages }
+             allContentfulPages: { group: pages },
+             allContentfulTurnierbericht: { group: tournaments }
            }) => {
             const newsEntries = news.map((page) => {
               const news = page.nodes[0];
@@ -124,8 +134,13 @@ module.exports = {
                   return { path: x.slug, lastmod: x.updatedAt };
               }
             });
+            const tournamentEntries = tournaments.map((page) => {
+              const tournament = page.nodes[0];
+              const uri = `/turniere/${tournament.year}/${tournament.slug}/`;
+              return { path: uri.toLowerCase(), lastmod: tournament.updatedAt };
+            });
             console.log({ pages: [...pageEntries, ...newsEntries] });
-            return [...pageEntries, ...newsEntries];
+            return [...pageEntries, ...newsEntries, ...tournamentEntries];
           },
         serialize:
           ({
