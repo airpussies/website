@@ -22,10 +22,10 @@ export function Head({location, params, data, pageContext}) {
   return (
     <>
       <title>air pussies — Berlin Ultimate Frisbee </title>
-      <meta name="description" content="Web Site der air pussies, Berlin Ultimate Frisbee."/>
-      <meta name={'keywords'} content={'air pussies, berlin, ultimate frisbee, sport team'}/>
+      <meta name="description" content="Startseite der air pussies, Ultimate Frisbee Team aus Berlin Wedding. (Anfänger-)Traning, Spielregeln und vieles mehr zur Teamsportart Ultimate."/>
+      <meta name={'keywords'} content={'air pussies, Berlin Wedding, Ultimate Frisbee, Sport Team, Training, Anfänger, Spielregeln'}/>
       <link rel="canonical" href="https://www.airpussies.berlin/" />
-      <meta property="og:title" content="air pussies Berlin Ultimate"/>
+      <meta property="og:title" content="air pussies — Ultimate Frisbee Team aus Berlin Wedding"/>
       <body className={'has-navbar-fixed-top'}></body>
       <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
       <script type="application/ld+json">{schemaData}</script>
