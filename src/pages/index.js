@@ -9,14 +9,14 @@ export function Head({location, params, data, pageContext}) {
   const schemaData = JSON.stringify({
     "@context": "https://schema.org/",
     "@type": "WebPage",
-    "name": "air pussies — Berlin Ultimate Frissbee club",
-    "headline": "air pussies — Berliner Ultimate Frisbee Verein — Startseite",
-    "genre": "ultimate frisbee club",
-    "keywords":"ultimate frisbee berlin",
+    "name": "air pussies — Ultimate Frisbee Team aus Berlin Wedding",
+    "headline": "air pussies — Ultimate Frisbee Team aus Berlin Wedding — Startseite",
+    "genre": "ultimate frisbee team",
+    "keywords":"ultimate frisbee berlin wedding training team",
     "datePublished": data.contentfulPages.createdAt,
     "dateCreated": data.contentfulPages.createdAt,
     "dateModified": data.contentfulPages.updatedAt,
-    "description": "Web Site der air pussies, Ultimate Frisbee in Berlin."
+    "description": "Startseite der air pussies, Ultimate Frisbee Team aus Berlin Wedding. (Anfänger-)Traning, Spielregeln und vieles mehr zur Teamsportart Ultimate."
   }, null, 2);
 
   return (
