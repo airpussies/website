@@ -15,12 +15,10 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
-    "@emotion/core": "11.0.0",
     "bulma": "0.9.4",
     "firebase": "8.10.1",
     "gatsby": "^5.8.1",
     "gatsby-cli": "^5.8.0",
-    "gatsby-plugin-emotion": "^8.8.0",
     "gatsby-plugin-firebase": "0.2.0-beta.4",
     "gatsby-plugin-image": "^3.8.0",
     "gatsby-plugin-manifest": "5.8.0",
@@ -28,7 +26,6 @@
     "gatsby-plugin-sass": "^6.8.0",
     "gatsby-plugin-sharp": "^5.12.0",
     "gatsby-plugin-sitemap": "6.8.0",
-    "gatsby-plugin-typography": "^5.8.0",
     "gatsby-source-contentful": "^8.8.0",
     "gatsby-source-filesystem": "5.8.0",
     "gatsby-transformer-remark": "^6.8.0",
@@ -37,7 +34,6 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-head": "3.4.2",
-    "react-typography": "0.16.23",
     "sass": "^1.66.1"
   },
   "devDependencies": {
