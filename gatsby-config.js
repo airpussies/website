@@ -74,7 +74,7 @@ module.exports = {
           allContentfulPages: { nodes: pages },
           allContentfulTurnierbericht: { nodes: tournaments },
         }) => {
-          const pagePaths = { home: "/", contact: "/kontakt/", imprint: "/impressum/", ultimate: "/was_ist_ultimate/", links: "/links/", privacy: "/datenschutz/" };
+          const pagePaths = { home: "/", contact: "/kontakt/", imprint: "/impressum/", ultimate: "/was_ist_ultimate/", links: "/links/", privacy: "/datenschutz/", mitspielen: "/mitspielen/" };
           const latest = (nodes) => nodes.map((n) => n.updatedAt).sort().at(-1);
           // same path scheme as gatsby-node.js; a mismatch only drops a lastmod, never a URL
           const lastmod = new Map([
