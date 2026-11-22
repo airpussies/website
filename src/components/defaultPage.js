@@ -9,7 +9,7 @@ export default function DefaultPage({data}) {
   if (page !== null && page.teaser !== null) {
     const dynamicImage = getImage(page.teaser)
     teaser = <figure className={"image"}>
-      <GatsbyImage image={dynamicImage} alt={""}/>
+      <GatsbyImage image={dynamicImage} alt={page.teaser.description || page.teaser.title || ""}/>
       <figcaption><em>{page.teaser.title}</em> — {page.teaser.description}</figcaption>
     </figure>
   }
