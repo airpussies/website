@@ -88,7 +88,6 @@ yarn-error.log, .cache/, .idea/   build/IDE noise
 - Class components still around (`src/templates/report.js`, auth forms) alongside function components.
 - `old_db/` (incl. its Pipfile) is a finished 2020 migration artifact — candidate for deletion.
 - React hydration errors #418/#423 on every page (server HTML ≠ client render), so React re-renders client-side.
-- "Registrierung" link in `src/components/tv/turnierverwaltung.js` points to `/signup` (real route: `/users/signup/`).
 - Concurrent edits to one event overwrite each other: `updateEventDocument` writes back the whole team map from client state.
 - `pathPrefix: "/website"` in config (GH-pages era) conflicts with Netlify root hosting; `npm run deploy` uses `--prefix-paths` but the `npm run build` (Netlify) path likely breaks.
 

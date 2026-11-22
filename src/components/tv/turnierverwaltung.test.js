@@ -34,7 +34,7 @@ describe("Turnierverwaltung", () => {
     ).toBeInTheDocument()
     expect(screen.getByRole("link", { name: "Registrierung" })).toHaveAttribute(
       "href",
-      "/signup"
+      "/users/signup/"
     )
   })
 
