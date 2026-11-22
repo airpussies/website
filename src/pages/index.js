@@ -27,25 +27,15 @@ export function Head({location, params, data, pageContext}) {
       <link rel="canonical" href="https://www.airpussies.berlin/" />
       <meta property="og:title" content="air pussies — Ultimate Frisbee Team aus Berlin Wedding"/>
       <body className={'has-navbar-fixed-top'}></body>
-      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
       <script type="application/ld+json">{schemaData}</script>
     </>
   );
 }
 
 export default function Home({data}) {
-  const news = data.allContentfulNews.edges.map(edge => edge['node'])
-    .map(node => {
-      // parse date: str -> date
-      node['publicationDate'] = new Date(node['publicationDate']);
-      return node;
-    });
-  const reports = data.allContentfulTurnierbericht.edges.map(edge => edge['node'])
-    .map(node => {
-      // parse date: str -> date
-      node['date'] = new Date(node['date']);
-      return node;
-    });
+  const news = data.allContentfulNews.edges.map(edge => edge['node']);
+  const reports = data.allContentfulTurnierbericht.edges.map(edge => edge['node']);
   return (
     <Layout bc={[
       {label: "Home", href: '#'},

@@ -1,4 +1,4 @@
-import { count, removeKeyFromObj } from "./helpers"
+import { count, formatDate, removeKeyFromObj } from "./helpers"
 
 describe("count", () => {
   it("counts the occurrences of a term", () => {
@@ -23,5 +23,14 @@ describe("removeKeyFromObj", () => {
 
   it("returns an empty object when nothing matches", () => {
     expect(removeKeyFromObj({ a: 1 }, () => false)).toEqual({})
+  })
+})
+
+describe("formatDate", () => {
+  it("formats the calendar date as entered, whatever the offset", () => {
+    expect(formatDate("2026-11-07T00:00+02:00")).toBe("7. November 2026")
+    expect(formatDate("2026-07-11T00:00+01:00")).toBe("11. Juli 2026")
+    expect(formatDate("2019-02-01T00:00:00Z")).toBe("1. Februar 2019")
+    expect(formatDate("2026-03-14T23:00+01:00")).toBe("14. März 2026")
   })
 })

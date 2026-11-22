@@ -14,7 +14,7 @@ export function Head({ location }) {
         <meta property="og:title" content={`air pussies — alle News`}/>
         <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
         <body className={'has-navbar-fixed-top'}></body>
-        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
       </>
 
     </>
@@ -23,11 +23,7 @@ export function Head({ location }) {
 export default function NewsByYears({data}) {
   const nodes = group_by('year', data.allContentfulNews.edges
     .map(edge => edge['node'])
-    .map(node => {
-      // parse date: str -> date
-      node['publicationDate'] = new Date(node['publicationDate']);
-      return node;
-    })
+    // ISO date strings ("2026-11-07T…") sort chronologically as plain strings
     .sort((a, b) => a['publicationDate'] < b['publicationDate'] ? 1 : -1)
   );
   return (

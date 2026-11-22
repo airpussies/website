@@ -8,7 +8,7 @@ export function Head() {
     <>
       <title>{`air pussies — Kontakt`}</title>
       <body className={'has-navbar-fixed-top'}></body>
-      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
     </>
   )
 }

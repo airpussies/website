@@ -22,7 +22,7 @@ export function Head({ location, data }) {
       <meta property="og:title" content={`air pussies — Turnier — ${data.contentfulTurnierbericht.title}`} />
       <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`} />
       <body className={'has-navbar-fixed-top'}></body>
-      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
     </>
   );
 }
@@ -59,7 +59,8 @@ class ReportTemplate extends React.Component {
       maybeDescription = <section className={"pt-5"}>
         <div className="box column is-full">
           <h3 className="is-3">Turnierbeschreibung</h3>
-          <p dangerouslySetInnerHTML={{__html: description.childMarkdownRemark.html}}/>
+          {/* div, not p: the markdown HTML is itself <p>s, and <p> in <p> is invalid HTML that breaks hydration */}
+          <div dangerouslySetInnerHTML={{__html: description.childMarkdownRemark.html}}/>
         </div>
       </section>;
     }

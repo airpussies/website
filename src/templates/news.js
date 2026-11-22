@@ -3,6 +3,7 @@ import * as PropTypes from "prop-types";
 import {GatsbyImage, getImage} from "gatsby-plugin-image";
 import Layout from "../components/layout";
 import {graphql} from "gatsby";
+import {formatDate} from "../utils/helpers";
 
 export function Head({location, params, data, pageContext}) {
   const news = data.contentfulNews;
@@ -36,7 +37,7 @@ export function Head({location, params, data, pageContext}) {
       <meta property="og:title" content={`air pussies — News — ${data.contentfulNews.headline}`}/>
       <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
       <body className={'has-navbar-fixed-top'}></body>
-      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
       <script type="application/ld+json">{schemaData}</script>
     </>
   );
@@ -67,11 +68,7 @@ class NewsTemplate extends React.Component {
       </figure>;
     }
 
-    const formattedDate = new Intl.DateTimeFormat('de', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }).format(new Date(publicationDate));
+    const formattedDate = formatDate(publicationDate);
 
     let timeToRead = body.childrenMarkdownRemark[0].timeToRead;
     return (

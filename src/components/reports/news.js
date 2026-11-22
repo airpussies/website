@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "gatsby"
+import {formatDate} from "../../utils/helpers";
 
 export default class News extends React.Component {
   render() {
@@ -11,11 +12,7 @@ export default class News extends React.Component {
       publicationDate,
       author
     } = news
-    const formattedDate = new Intl.DateTimeFormat('de', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }).format(publicationDate)
+    const formattedDate = formatDate(publicationDate)
     return (
       <div className={"box"}>
         <dt><Link to={`/news/${year}/${slug.toLowerCase()}`}><h3 className={"subtitle"}>{headline}</h3></Link></dt>
