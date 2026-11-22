@@ -10,14 +10,17 @@ const Footer = () => (
                 </p>
             </div>
             <div className="columns">
-                <div className="column is-4 has-text-centered">
+                <div className="column is-3 has-text-centered">
                     <Link to="/impressum/">Impressum</Link>
                 </div>
-                <div className="column is-4 has-text-centered">
+                <div className="column is-3 has-text-centered">
                     <Link to="/datenschutz/">Datenschutz</Link>
                 </div>
-                <div className="column is-4 has-text-centered">
+                <div className="column is-3 has-text-centered">
                     <Link to="/kontakt/">Kontakt</Link>
+                </div>
+                <div className="column is-3 has-text-centered">
+                    <Link to="/links/">Links</Link>
                 </div>
             </div>
         </div>
