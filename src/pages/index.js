@@ -34,18 +34,8 @@ export function Head({location, params, data, pageContext}) {
 }
 
 export default function Home({data}) {
-  const news = data.allContentfulNews.edges.map(edge => edge['node'])
-    .map(node => {
-      // parse date: str -> date
-      node['publicationDate'] = new Date(node['publicationDate']);
-      return node;
-    });
-  const reports = data.allContentfulTurnierbericht.edges.map(edge => edge['node'])
-    .map(node => {
-      // parse date: str -> date
-      node['date'] = new Date(node['date']);
-      return node;
-    });
+  const news = data.allContentfulNews.edges.map(edge => edge['node']);
+  const reports = data.allContentfulTurnierbericht.edges.map(edge => edge['node']);
   return (
     <Layout bc={[
       {label: "Home", href: '#'},

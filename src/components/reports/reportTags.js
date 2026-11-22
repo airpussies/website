@@ -1,5 +1,6 @@
 import React from "react";
 import Division from "./division";
+import {formatDate} from "../../utils/helpers";
 
 const ReportTags = (props) => {
   const date = props.date;
@@ -7,11 +8,7 @@ const ReportTags = (props) => {
   const fieldType = props.fieldType;
   const division = props.division;
 
-  const formattedDate = new Intl.DateTimeFormat('de', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(new Date(date));
+  const formattedDate = formatDate(date);
 
   return (
     <div className="field is-grouped is-grouped-multiline">

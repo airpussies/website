@@ -3,6 +3,7 @@ import * as PropTypes from "prop-types";
 import {GatsbyImage, getImage} from "gatsby-plugin-image";
 import Layout from "../components/layout";
 import {graphql} from "gatsby";
+import {formatDate} from "../utils/helpers";
 
 export function Head({location, params, data, pageContext}) {
   const news = data.contentfulNews;
@@ -67,11 +68,7 @@ class NewsTemplate extends React.Component {
       </figure>;
     }
 
-    const formattedDate = new Intl.DateTimeFormat('de', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }).format(new Date(publicationDate));
+    const formattedDate = formatDate(publicationDate);
 
     let timeToRead = body.childrenMarkdownRemark[0].timeToRead;
     return (

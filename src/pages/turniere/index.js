@@ -24,11 +24,7 @@ export function Head({ location, params, data, pageContext }) {
 export default function NewsByYears({data}) {
   const nodes = group_by('year', data.allContentfulTurnierbericht.edges
     .map(edge => edge['node'])
-    .map(node => {
-      // parse date: str -> date
-      node['date'] = new Date(node['date']);
-      return node;
-    })
+    // ISO date strings ("2026-11-07T…") sort chronologically as plain strings
     .sort((a, b) => a['date'] < b['date'] ? 1 : -1)
   );
   return (
