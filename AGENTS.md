@@ -34,6 +34,25 @@ npm run build        # gatsby build
 - Tests: `npm test` (Jest + Testing Library, jsdom). Firebase is mocked globally in `jest/setup.js` (in-memory Firestore in `jest/firestore-mock.js`), so tests never hit the real project — and don't prove the real SDK bundles; run `npm run build` for that. Babel presets live in `jest.config.js`, not `babel.config.js` (Gatsby would pick that up and drop `babel-preset-gatsby`).
 - Format with `npm run format` (Prettier).
 
+## Browser testing (Turnierverwaltung)
+
+Unit tests mock Firebase, so changes to auth/Firestore code need a manual run against the real `trnrvtng` project:
+
+1. `npm run build && npm run serve` → `http://localhost:9000/` (production build; `develop` hides SSR/hydration issues).
+2. Signed out, open a tournament page (`/turniere/<year>/<slug>/`): the Turnierverwaltung shows "nur registrierten Nutzern".
+3. Sign in at `/users/signin/` with the test account (see `CLAUDE.local.md`). **A human has to type the password**: Firebase Auth posts it to `identitytoolkit.googleapis.com`, which agents must not do. Sign in in the same localhost tab — the session is stored per origin.
+4. `/users/profile/`: the user doc (Pussiename) and the team checkboxes load from Firestore.
+5. A **past** tournament page (e.g. `/turniere/2026/wild-silver-wedding/`): teams and players load. Add the test user to a team via the "du bist noch nicht dabei" row → save, reload (persisted?), change status → save, delete → reload (roster back to before).
+6. Navbar "Logout" → back on home, navbar shows "Login".
+
+Gotchas:
+
+- Every page writes to the live database. Opening a tournament page while signed in creates `events/{year}_{slug}` if missing. Always delete what you add.
+- Don't click "Team hinzufügen" — there's no UI to remove a team from an event. Don't trigger password reset or sign-up (real emails / real accounts).
+- The delete button calls `window.confirm`, which blocks browser automation. Run `window.confirm = () => true` on the page first.
+- Player rows reuse `id="state"` / `id="sex"`, so accessibility-tree lookups grab the wrong row. Locate a row by its `input[name=name]` value inside the team's `.box` (team name is the box's `h4`).
+- React errors #418/#423 in the console on every page are pre-existing hydration mismatches (live site has them too) — not a regression signal. Look for `FirebaseError` / "Operation fehlgeschlagen" instead.
+
 ## Repo layout
 
 ```
@@ -68,6 +87,9 @@ yarn-error.log, .cache/, .idea/   build/IDE noise
 - No CI; lockfile is `package-lock.json` (npm). `yarn.lock` was removed — don't reintroduce a second lockfile.
 - Class components still around (`src/templates/report.js`, auth forms) alongside function components.
 - `old_db/` (incl. its Pipfile) is a finished 2020 migration artifact — candidate for deletion.
+- React hydration errors #418/#423 on every page (server HTML ≠ client render), so React re-renders client-side.
+- "Registrierung" link in `src/components/tv/turnierverwaltung.js` points to `/signup` (real route: `/users/signup/`).
+- Concurrent edits to one event overwrite each other: `updateEventDocument` writes back the whole team map from client state.
 - `pathPrefix: "/website"` in config (GH-pages era) conflicts with Netlify root hosting; `npm run deploy` uses `--prefix-paths` but the `npm run build` (Netlify) path likely breaks.
 
 ## test account

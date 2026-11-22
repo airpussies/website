@@ -15,6 +15,9 @@ This site makes use of the great [Contentful CMS](https://www.contentful.com/). 
 
 then run `gatsby develop`
 
+`npm test` runs the unit tests (Firebase is mocked). Changes to the Turnierverwaltung (login, Firestore) should also be
+checked in a browser against the real database — see the checklist in [AGENTS.md](./AGENTS.md#browser-testing-turnierverwaltung).
+
 ## tech stack
 
 - Contentful CMS (content creation)
