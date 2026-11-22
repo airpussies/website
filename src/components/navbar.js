@@ -55,6 +55,8 @@ function Navbar() {
     { label: "News", path: "/news/" },
     { label: "Turniere", path: "/turniere/" },
     { label: "Was ist Ultimate?", path: "/was_ist_ultimate/" },
+    { label: "Mitspielen", path: "/mitspielen/" },
+    { label: "Kontakt", path: "/kontakt/" },
     { label: "Login", path: "/users/signin/", hide: isLoggedIn },
     { label: "Profil", path: "/users/profile/", hide: !isLoggedIn }
   ];
