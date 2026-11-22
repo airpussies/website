@@ -16,10 +16,10 @@
   },
   "dependencies": {
     "bulma": "0.9.4",
-    "firebase": "8.10.1",
+    "dotenv": "^18.0.0",
+    "firebase": "^12.19.0",
     "gatsby": "^5.8.1",
     "gatsby-cli": "^5.8.0",
-    "gatsby-plugin-firebase": "0.2.0-beta.4",
     "gatsby-plugin-image": "^3.8.0",
     "gatsby-plugin-manifest": "5.8.0",
     "gatsby-plugin-postcss": "6.8.0",

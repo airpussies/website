@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 import { Link, navigate } from "gatsby";
 import logo from "../../static/disc.png";
 import { UserContext } from "../context/UserProvider";
-import firebase from "gatsby-plugin-firebase";
+import { signOut } from "firebase/auth";
+import { auth } from "../lib/firebase";
 
 function NavbarItem(props) {
   if (props.hide) {
@@ -45,7 +46,7 @@ function Navbar() {
   const logout = async (event) => {
     event.preventDefault();
     console.log("logging out");
-    await firebase.auth().signOut();
+    await signOut(auth);
     navigate("/");
   };
 

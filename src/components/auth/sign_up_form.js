@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import firebase from "gatsby-plugin-firebase";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../../lib/firebase";
 import {generateUserDocument} from "../../lib/firebase_user";
 import {Link, navigate} from "gatsby";
 
@@ -15,7 +16,7 @@ function SignupForm() {
     setError(null);
     setDetail(null);
     try {
-      const {user} = await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const {user} = await createUserWithEmailAndPassword(auth, email, password);
       await generateUserDocument(user, {displayName})
       navigate("/users/profile");
     } catch (error) {

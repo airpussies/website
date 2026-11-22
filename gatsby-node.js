@@ -2,6 +2,21 @@ const _ = require(`lodash`);
 const path = require("path");
 const { slash } = require(`gatsby-core-utils`);
 
+// The modular Firebase JS SDK (v9+) ships conditional builds per package: a `node`
+// build, a `browser` build, etc. Our static site is a pure client-side app
+// (Firebase Auth + Firestore in the browser). When webpack resolves with the
+// `node` condition active it picks the Node ESM build of `@firebase/auth`
+// (and friends), which pulls in `undici` and then imports `node:*` builtins —
+// a scheme webpack can't bundle. By preferring the `browser` condition and
+// dropping `node`, webpack always bundles the web build.
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      conditionNames: ["browser", "import", "module", "default"],
+    },
+  });
+};
+
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
 

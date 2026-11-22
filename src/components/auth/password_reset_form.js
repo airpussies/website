@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Link} from "gatsby";
-import firebase from "gatsby-plugin-firebase";
+import {sendPasswordResetEmail} from "firebase/auth";
+import {auth} from "../../lib/firebase";
 
 const PasswordResetForm = () => {
   const [email, setEmail] = useState('');
@@ -15,7 +16,7 @@ const PasswordResetForm = () => {
   }
   const sendResetEmail = (event) => {
     event.preventDefault();
-    firebase.auth().sendPasswordResetEmail(email)
+    sendPasswordResetEmail(auth, email)
       .then(() => {
         setEmailHasBeenSent(true);
         setTimeout(() => {
