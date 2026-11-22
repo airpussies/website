@@ -14,7 +14,11 @@ Website of the **air pussies** Ultimate Frisbee team (Berlin, Germany). Live at 
 - **Turnierverwaltung** (tournament management): the authenticated part of the site. Firebase Auth + Firestore (project `trnrvtng`) via the modular `firebase` v12 SDK. A single app client is initialized in `src/lib/firebase.js` (exports `auth`, `db`); consumers import the modular functions directly (`signInWithEmailAndPassword`, `getDoc`, `collection`, ...). Event docs keyed `events/{year}_{slug}`, created lazily on first visit by signed-in users. Components in `src/components/tv/` (event, pussie=player, teams), auth forms in `src/components/auth/`, Firestore wrappers in `src/lib/` (`firebase_user.js`, `firebase_event.js`).
   - Firebase web config (project `trnrvtng`) is inlined in `src/lib/firebase.js` — public by design (readable from the deployed site).
   - `gatsby-node.js` sets `resolve.conditionNames` to prefer the `browser` build of the `@firebase/*` packages (avoids the `node` build that imports `undici`/`node:*` builtins, which webpack can't bundle).
-- **Styling**: Bulma 0.9 (CSS framework) + one SCSS file (`src/components/layout.scss`), FontAwesome icon/font scripts loaded from CDN per page.
+- **Styling**: Bulma 0.9 (CSS framework) + one SCSS file (`src/components/layout.scss`), FontAwesome 5 **CSS** (webfont) loaded from CDN in each page's `Head`.
+- **Hydration rules** (every page is server-rendered, then hydrated; any difference makes React throw #418/#423 and re-render the page client-side):
+  - FontAwesome: use `css/all.css`, never the `js/all.js` build — it rewrites `<i>` into `<svg>` before React hydrates.
+  - Format Contentful dates only via `formatDate` (`src/utils/helpers.js`): it takes the date as entered, in UTC. Netlify builds in UTC, visitors are in Berlin, so timezone-dependent formatting renders different days on server and client.
+  - No block elements inside `<p>` (markdown HTML from `childMarkdownRemark.html` is `<p>`s — wrap it in a `<div>`).
 - **SEO**: per-page `Head` exports, JSON-LD on home, custom sitemap plugin config in `gatsby-config.js`.
 - **Hosting**: Netlify (README) / also a GH-pages deploy script in `package.json`.
 
@@ -51,7 +55,7 @@ Gotchas:
 - Don't click "Team hinzufügen" — there's no UI to remove a team from an event. Don't trigger password reset or sign-up (real emails / real accounts).
 - The delete button calls `window.confirm`, which blocks browser automation. Run `window.confirm = () => true` on the page first.
 - Player rows reuse `id="state"` / `id="sex"`, so accessibility-tree lookups grab the wrong row. Locate a row by its `input[name=name]` value inside the team's `.box` (team name is the box's `h4`).
-- React errors #418/#423 in the console on every page are pre-existing hydration mismatches (live site has them too) — not a regression signal. Look for `FirebaseError` / "Operation fehlgeschlagen" instead.
+- The console should be clean. React errors #418/#423 are hydration mismatches — a regression (see "Hydration rules" above). To reproduce Netlify, build with `TZ=UTC npm run build`. Firebase problems show up as `FirebaseError` / "Operation fehlgeschlagen".
 
 ## Repo layout
 
@@ -87,7 +91,6 @@ yarn-error.log, .cache/, .idea/   build/IDE noise
 - No CI; lockfile is `package-lock.json` (npm). `yarn.lock` was removed — don't reintroduce a second lockfile.
 - Class components still around (`src/templates/report.js`, auth forms) alongside function components.
 - `old_db/` (incl. its Pipfile) is a finished 2020 migration artifact — candidate for deletion.
-- React hydration errors #418/#423 on every page (server HTML ≠ client render), so React re-renders client-side.
 - Concurrent edits to one event overwrite each other: `updateEventDocument` writes back the whole team map from client state.
 - `pathPrefix: "/website"` in config (GH-pages era) conflicts with Netlify root hosting; `npm run deploy` uses `--prefix-paths` but the `npm run build` (Netlify) path likely breaks.
 
