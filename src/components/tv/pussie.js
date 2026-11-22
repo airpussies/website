@@ -26,7 +26,7 @@ const CommentMouseOver = props => {
  * @returns {JSX.Element}
  * @constructor
  */
-const Pussie = props => {
+export const Pussie = props => {
   const [name, setName] = useState(props.name || "")
   const [state, setState] = useState(props.pussie.state || "yep")
   const [sex, setSex] = useState(props.pussie.sex || "none")
@@ -158,6 +158,7 @@ const Pussie = props => {
           className="button is-small"
           style={!changed ? { display: "none" } : {}}
           hidden={!changed}
+          aria-label="Speichern"
           onClick={event => onSubmitHandler(event)}
         >
           <span className="icon is-small">
@@ -166,6 +167,7 @@ const Pussie = props => {
         </button>
         <button
           className="button is-small"
+          aria-label={`Löschen ${name}`}
           onClick={event => {
             if (window.confirm(`Soll '${name}' wirklich gelöscht werden?`)) {
               props.delUser(event, name)
