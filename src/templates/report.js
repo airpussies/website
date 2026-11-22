@@ -59,7 +59,8 @@ class ReportTemplate extends React.Component {
       maybeDescription = <section className={"pt-5"}>
         <div className="box column is-full">
           <h3 className="is-3">Turnierbeschreibung</h3>
-          <p dangerouslySetInnerHTML={{__html: description.childMarkdownRemark.html}}/>
+          {/* div, not p: the markdown HTML is itself <p>s, and <p> in <p> is invalid HTML that breaks hydration */}
+          <div dangerouslySetInnerHTML={{__html: description.childMarkdownRemark.html}}/>
         </div>
       </section>;
     }
