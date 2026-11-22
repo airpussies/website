@@ -6,7 +6,7 @@ import Seo from "../components/seo";
 
 export function Head({ location, data }) {
   const page = data.contentfulPages;
-  return <Seo title={page.headline} description={page.body.childMarkdownRemark.excerpt} pathname={location.pathname}/>;
+  return <Seo title={page.headline} description="Impressum der air pussies: Anbieterkennzeichnung des TSV Berlin-Wedding 1862 e.V. mit Vertretung, Kontakt und Vereinsregistereintrag." pathname={location.pathname}/>;
 }
 
 export default function Home({data}) {
@@ -35,7 +35,6 @@ export const pageQuery = graphql`
       body {
         childMarkdownRemark {
           html
-          excerpt(pruneLength: 155)
         }
       }
     }
