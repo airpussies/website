@@ -14,7 +14,7 @@ export function Head({ location }) {
         <meta property="og:title" content={`air pussies — alle News`}/>
         <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
         <body className={'has-navbar-fixed-top'}></body>
-        <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
       </>
 
     </>
