@@ -4,32 +4,29 @@ import {graphql, Link} from "gatsby";
 import DefaultPage from "../components/defaultPage";
 import News from "../components/reports/news";
 import Report from "../components/reports/report";
+import Seo, {JsonLd, SITE_URL, team} from "../components/seo";
 
-export function Head({location, params, data, pageContext}) {
-  const schemaData = JSON.stringify({
-    "@context": "https://schema.org/",
-    "@type": "WebPage",
-    "name": "air pussies — Ultimate Frisbee Team aus Berlin Wedding",
-    "headline": "air pussies — Ultimate Frisbee Team aus Berlin Wedding — Startseite",
-    "genre": "ultimate frisbee team",
-    "keywords":"ultimate frisbee berlin wedding training team",
-    "datePublished": data.contentfulPages.createdAt,
-    "dateCreated": data.contentfulPages.createdAt,
-    "dateModified": data.contentfulPages.updatedAt,
-    "description": "Startseite der air pussies, Ultimate Frisbee Team aus Berlin Wedding. (Anfänger-)Training, Spielregeln und vieles mehr zur Teamsportart Ultimate."
-  }, null, 2);
-
+export function Head({location}) {
   return (
-    <>
-      <title>air pussies — Berlin Ultimate Frisbee </title>
-      <meta name="description" content="Startseite der air pussies, Ultimate Frisbee Team aus Berlin Wedding. (Anfänger-)Training, Spielregeln und vieles mehr zur Teamsportart Ultimate."/>
-      <meta name={'keywords'} content={'air pussies, Berlin Wedding, Ultimate Frisbee, Sport Team, Training, Anfänger, Spielregeln'}/>
-      <link rel="canonical" href="https://www.airpussies.berlin/" />
-      <meta property="og:title" content="air pussies — Ultimate Frisbee Team aus Berlin Wedding"/>
-      <body className={'has-navbar-fixed-top'}></body>
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-      <script type="application/ld+json">{schemaData}</script>
-    </>
+    <Seo
+      title="Berlin Ultimate Frisbee"
+      description="Startseite der air pussies, Ultimate Frisbee Team aus Berlin Wedding. (Anfänger-)Training, Spielregeln und vieles mehr zur Teamsportart Ultimate."
+      pathname={location.pathname}
+    >
+      <JsonLd data={{
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": `${SITE_URL}/#website`,
+            url: `${SITE_URL}/`,
+            name: "air pussies",
+            inLanguage: "de-DE",
+            publisher: {"@id": team["@id"]},
+          },
+          team,
+        ],
+      }}/>
+    </Seo>
   );
 }
 

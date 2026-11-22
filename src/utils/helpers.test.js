@@ -1,4 +1,4 @@
-import { count, formatDate, removeKeyFromObj } from "./helpers"
+import { count, formatDate, removeKeyFromObj, toDescription } from "./helpers"
 
 describe("count", () => {
   it("counts the occurrences of a term", () => {
@@ -32,5 +32,14 @@ describe("formatDate", () => {
     expect(formatDate("2026-07-11T00:00+01:00")).toBe("11. Juli 2026")
     expect(formatDate("2019-02-01T00:00:00Z")).toBe("1. Februar 2019")
     expect(formatDate("2026-03-14T23:00+01:00")).toBe("14. März 2026")
+  })
+})
+
+describe("toDescription", () => {
+  it("strips tags, collapses whitespace and cuts at a word boundary", () => {
+    expect(toDescription("<p>Das Fackel Up\n in  Braunschweig</p>")).toBe("Das Fackel Up in Braunschweig")
+    const long = toDescription("<p>" + "wort ".repeat(50) + "</p>")
+    expect(long.length).toBeLessThanOrEqual(156)
+    expect(long.endsWith("wort…")).toBe(true)
   })
 })

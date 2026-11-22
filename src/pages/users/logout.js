@@ -1,14 +1,9 @@
 import React from "react";
 import Layout from "../../components/layout"
+import Seo from "../../components/seo"
 
-export function Head() {
-  return (
-    <>
-      <title>{`air pussies — Users: Logout`}</title>
-      <body className={'has-navbar-fixed-top'}></body>
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-    </>
-  )
+export function Head({ location }) {
+  return <Seo title="Users: Logout" pathname={location.pathname} noindex/>
 }
 
 function Signin() {

@@ -1,45 +1,31 @@
 import React from "react";
 import * as PropTypes from "prop-types";
-import {GatsbyImage, getImage} from "gatsby-plugin-image";
+import {GatsbyImage, getImage, getSrc} from "gatsby-plugin-image";
 import Layout from "../components/layout";
 import {graphql} from "gatsby";
-import {formatDate} from "../utils/helpers";
+import {formatDate, toDescription} from "../utils/helpers";
+import Seo, {JsonLd, SITE_URL, team} from "../components/seo";
 
-export function Head({location, params, data, pageContext}) {
-  const news = data.contentfulNews;
-  const {
-    headline,
-    body,
-    author
-  } = news;
-  let description = body.childrenMarkdownRemark[0].rawMarkdownBody.match(/^(.*?)[.?!]\s/);
-  const schemaData = JSON.stringify({
-    "@context": "https://schema.org/",
-    "@type": "NewsArticle",
-    "name": headline,
-    "author": {
-      "@type": "Person",
-      "name": author
-    },
-    "headline": `air pussies — Turniere — ${headline}`,
-    "genre": "ultimate frisbee club",
-    "keywords": "ultimate frisbee berlin",
-    "datePublished": data.contentfulNews.createdAt,
-    "dateCreated": data.contentfulNews.createdAt,
-    "dateModified": data.contentfulNews.updatedAt,
-    "description": description ? description[0] : headline
-  }, null, 2);
+export function Head({location, data}) {
+  const {headline, author, publicationDate, updatedAt, teaser, body} = data.contentfulNews;
+  // remark's excerpt is empty for articles written as raw HTML
+  const description = body.childMarkdownRemark.excerpt || toDescription(body.childrenMarkdownRemark[0].rawMarkdownBody);
+  const image = teaser ? getSrc(teaser) : undefined;
+  const url = `${SITE_URL}${location.pathname}`;
   return (
-    <>
-      <title>{`air pussies — News — ${data.contentfulNews.headline}`}</title>
-      <link rel="canonical" href={`https://www.airpussies.berlin${location.pathname}`}/>
-      <meta name="twitter:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
-      <meta property="og:title" content={`air pussies — News — ${data.contentfulNews.headline}`}/>
-      <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
-      <body className={'has-navbar-fixed-top'}></body>
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-      <script type="application/ld+json">{schemaData}</script>
-    </>
+    <Seo title={`News — ${headline}`} description={description} pathname={location.pathname} image={image} type="article">
+      <JsonLd data={{
+        "@type": "NewsArticle",
+        headline,
+        description,
+        ...(image && {image: [image]}),
+        datePublished: publicationDate.slice(0, 10), // the date shown on the page, see formatDate
+        dateModified: updatedAt,
+        author: {"@type": "Person", name: author},
+        publisher: team,
+        mainEntityOfPage: url,
+      }}/>
+    </Seo>
   );
 }
 
@@ -142,6 +128,7 @@ export const pageQuery = graphql`
       body {
         childMarkdownRemark {
           html
+          excerpt(pruneLength: 155)
         }
         childrenMarkdownRemark {
           wordCount {
