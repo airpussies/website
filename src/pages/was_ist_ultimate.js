@@ -6,7 +6,7 @@ import Seo from "../components/seo";
 
 export function Head({ location, data }) {
   const page = data.contentfulPages;
-  return <Seo title={page.headline} description={page.body.childMarkdownRemark.excerpt} pathname={location.pathname}/>;
+  return <Seo title={page.headline} description="Was ist Ultimate Frisbee? Spielidee, Regeln, Spielfeld und Spirit of the Game – die schnelle Teamsportart ohne Schiedsrichter kurz erklärt." pathname={location.pathname}/>;
 }
 
 export default function Home({data}) {
@@ -38,7 +38,6 @@ export const pageQuery = graphql`
       body {
         childMarkdownRemark {
           html
-          excerpt(pruneLength: 155)
         }
       }
     }
