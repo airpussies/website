@@ -1,2 +1,6 @@
+# /users/* is crawlable on purpose: those pages carry <meta name="robots" content="noindex">,
+# which crawlers can only see if robots.txt doesn't block them.
 User-agent: *
-Disallow: /users/
+Allow: /
+
+Sitemap: https://www.airpussies.berlin/sitemap-index.xml

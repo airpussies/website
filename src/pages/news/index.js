@@ -3,21 +3,15 @@ import React from "react"
 import Layout from "../../components/layout";
 import EntriesByYear from "../../components/reports/EntriesByYear";
 import {group_by} from "../../lib/util"
+import Seo from "../../components/seo";
 
 export function Head({ location }) {
   return (
-    <>
-      <>
-        <title>{`air pussies — alle News`}</title>
-        <link rel="canonical" href={`https://www.airpussies.berlin${location.pathname}`}/>
-        <meta name="twitter:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
-        <meta property="og:title" content={`air pussies — alle News`}/>
-        <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`}/>
-        <body className={'has-navbar-fixed-top'}></body>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-      </>
-
-    </>
+    <Seo
+      title="alle News"
+      description="Berichte und Neuigkeiten der air pussies, Ultimate-Frisbee-Team aus Berlin-Wedding: Turnierberichte, Trainingslager und Teamleben."
+      pathname={location.pathname}
+    />
   )
 }
 export default function NewsByYears({data}) {

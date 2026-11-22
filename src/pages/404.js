@@ -1,10 +1,14 @@
 import Layout from '../components/layout';
 import React from 'react';
+import Seo from '../components/seo';
+
+export function Head({location}) {
+  return <Seo title="Seite nicht gefunden" pathname={location.pathname} noindex/>;
+}
 
 export default function Page({data}) {
   return (
     <>
-      <body className={'has-navbar-fixed-top'}></body>
       <Layout bc={[
         {label: "Home", href: '/'},
         {label: "404 — Not found", href: '#'}

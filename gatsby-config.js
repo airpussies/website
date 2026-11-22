@@ -57,88 +57,36 @@ module.exports = {
     {
       resolve: "gatsby-plugin-sitemap",
       options: {
+        // The URL list comes from the pages Gatsby actually built (allSitePage);
+        // Contentful only supplies lastmod. 404 pages are excluded by the plugin.
+        excludes: ["/users/*"],
         query: `
         {
-          allContentfulNews {
-            group(field: {contentful_id: SELECT}) {
-              nodes {
-                slug
-                updatedAt
-                year: publicationDate(formatString: "Y")
-              }
-            }
-          }
-          allContentfulPages {
-            group(field: {contentful_id: SELECT}) {
-              nodes {
-                slug
-                updatedAt
-              }
-            }
-          }
-          allContentfulTurnierbericht {
-            group(field: {contentful_id: SELECT}) {
-              nodes {
-                slug
-                year: date(formatString: "Y")
-                updatedAt
-              }
-            }
-          }
-      }`,
+          allSitePage { nodes { path } }
+          allContentfulNews { nodes { slug updatedAt year: publicationDate(formatString: "Y") } }
+          allContentfulPages { nodes { slug updatedAt } }
+          allContentfulTurnierbericht { nodes { slug updatedAt year: date(formatString: "Y") } }
+        }`,
         resolveSiteUrl: () => siteUrl,
-        resolvePages:
-          ({
-             allContentfulNews: { group: news },
-             allContentfulPages: { group: pages },
-             allContentfulTurnierbericht: { group: tournaments }
-           }) => {
-            const newsEntries = news.map((page) => {
-              const news = page.nodes[0];
-              const uri = `/news/${news.year}/${news.slug}/`;
-              return { path: uri.toLowerCase(), lastmod: news.updatedAt };
-            });
-            const pageEntries = pages.map((page) => {
-              const x = page.nodes[0];
-              switch (x.slug) {
-                case "home":
-                  return { path: "/", lastmod: x.updatedAt };
-                case "contact":
-                  return { path: "/kontakt/", lastmod: x.updatedAt };
-                case "imprint":
-                  return { path: "/impressum/", lastmod: x.updatedAt };
-                case "ultimate":
-                  return { path: "/was_ist_ultimate/", lastmod: x.updatedAt };
-                case "links":
-                  return { path: "/links/", lastmod: x.updatedAt };
-                case "privacy":
-                  return { path: "/datenschutz/", lastmod: x.updatedAt };
-                default:
-                  return { path: x.slug, lastmod: x.updatedAt };
-              }
-            });
-            const tournamentEntries = tournaments.map((page) => {
-              const tournament = page.nodes[0];
-              const uri = `/turniere/${tournament.year}/${tournament.slug}/`;
-              return { path: uri.toLowerCase(), lastmod: tournament.updatedAt };
-            });
-            console.log({ pages: [...pageEntries, ...newsEntries] });
-            return [...pageEntries, ...newsEntries, ...tournamentEntries];
-          },
-        serialize:
-          ({
-             path,
-             lastmod,
-             changefreq,
-             priority
-           }) => {
-            return {
-              url: `${siteUrl}${path}`,
-              lastmod,
-              changefreq,
-              priority
-            };
-          }
+        resolvePages: ({
+          allSitePage: { nodes: sitePages },
+          allContentfulNews: { nodes: news },
+          allContentfulPages: { nodes: pages },
+          allContentfulTurnierbericht: { nodes: tournaments },
+        }) => {
+          const pagePaths = { home: "/", contact: "/kontakt/", imprint: "/impressum/", ultimate: "/was_ist_ultimate/", links: "/links/", privacy: "/datenschutz/" };
+          const latest = (nodes) => nodes.map((n) => n.updatedAt).sort().at(-1);
+          // same path scheme as gatsby-node.js; a mismatch only drops a lastmod, never a URL
+          const lastmod = new Map([
+            ...pages.map((p) => [pagePaths[p.slug], p.updatedAt]),
+            ...news.map((n) => [`/news/${n.year}/${n.slug.toLowerCase()}/`, n.updatedAt]),
+            ...tournaments.map((t) => [`/turniere/${t.year}/${t.slug.toLowerCase()}/`, t.updatedAt]),
+            ["/news/", latest(news)],
+            ["/turniere/", latest(tournaments)],
+          ]);
+          return sitePages.map(({ path }) => ({ path, lastmod: lastmod.get(path) }));
+        },
+        serialize: ({ path, lastmod }) => ({ url: `${siteUrl}${path}`, lastmod }),
       }
     }]
 };

@@ -14,7 +14,7 @@ function NavbarItem(props) {
     return (
       <Link
         className={"navbar-item " + (props.active ? "is-active" : "not-active")}
-        to={props.page} rel={props.page.startsWith("/users/") ? "noindex, nofollow" : null}>
+        to={props.page} rel={props.page.startsWith("/users/") ? "nofollow" : null}>
         {props.pagename}
       </Link>
     );

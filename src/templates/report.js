@@ -4,26 +4,33 @@ import Layout from "../components/layout";
 import {graphql} from "gatsby";
 import ReportTags from "../components/reports/reportTags";
 import Turnierverwaltung from "../components/tv/turnierverwaltung";
+import Seo, {JsonLd, SITE_URL, team} from "../components/seo";
+import {formatDate} from "../utils/helpers";
+
+const FIELD_TYPES = {grass: "Rasen", indoor: "Halle", sand: "Beach", "artificial turf": "Kunstrasen"};
 
 export function Head({ location, data }) {
-  const news = data.contentfulTurnierbericht;
-  const {
-    title,
-    date,
-    fieldType,
-    division
-  } = news;
+  const {title, year, date, fieldType, division, location: place} = data.contentfulTurnierbericht;
+  // recurring tournaments share their name across years — the year keeps titles unique
+  const clean = title.replace(/\s+/g, " ").trim();
+  const name = clean.includes(year) ? clean : `${clean} ${year}`;
+  const divisions = division.split(";").join(", ");
   return (
-    <>
-      <title>{`air pussies —  Turnier — ${title}`}</title>
-      <meta name="description" content={`Ultimate Turnier ${title} am ${date} auf ${fieldType} in ${news.location}, Division ${division}`}/>
-      <link rel="canonical" href={`https://www.airpussies.berlin${location.pathname}`} />
-      <meta name="twitter:url" content={`https://www.airpussies.berlin${location.pathname}`} />
-      <meta property="og:title" content={`air pussies — Turnier — ${data.contentfulTurnierbericht.title}`} />
-      <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`} />
-      <body className={'has-navbar-fixed-top'}></body>
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-    </>
+    <Seo
+      title={`Turnier — ${name}`}
+      description={`Ultimate-Frisbee-Turnier ${name} am ${formatDate(date)} in ${place} (${FIELD_TYPES[fieldType] || fieldType}, Division ${divisions}) — mit den air pussies aus Berlin.`}
+      pathname={location.pathname}
+    >
+      <JsonLd data={{
+        "@type": "SportsEvent",
+        name,
+        startDate: date.slice(0, 10), // the date as entered, see formatDate
+        sport: "Ultimate Frisbee",
+        url: `${SITE_URL}${location.pathname}`,
+        location: {"@type": "Place", name: place, address: {"@type": "PostalAddress", addressLocality: place}},
+        competitor: team,
+      }}/>
+    </Seo>
   );
 }
 

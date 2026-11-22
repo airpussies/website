@@ -14,12 +14,15 @@ Website of the **air pussies** Ultimate Frisbee team (Berlin, Germany). Live at 
 - **Turnierverwaltung** (tournament management): the authenticated part of the site. Firebase Auth + Firestore (project `trnrvtng`) via the modular `firebase` v12 SDK. A single app client is initialized in `src/lib/firebase.js` (exports `auth`, `db`); consumers import the modular functions directly (`signInWithEmailAndPassword`, `getDoc`, `collection`, ...). Event docs keyed `events/{year}_{slug}`, created lazily on first visit by signed-in users. Components in `src/components/tv/` (event, pussie=player, teams), auth forms in `src/components/auth/`, Firestore wrappers in `src/lib/` (`firebase_user.js`, `firebase_event.js`).
   - Firebase web config (project `trnrvtng`) is inlined in `src/lib/firebase.js` — public by design (readable from the deployed site).
   - `gatsby-node.js` sets `resolve.conditionNames` to prefer the `browser` build of the `@firebase/*` packages (avoids the `node` build that imports `undici`/`node:*` builtins, which webpack can't bundle).
-- **Styling**: Bulma 0.9 (CSS framework) + one SCSS file (`src/components/layout.scss`), FontAwesome 5 **CSS** (webfont) loaded from CDN in each page's `Head`.
+- **Styling**: Bulma 0.9 (CSS framework) + one SCSS file (`src/components/layout.scss`), FontAwesome 5 **CSS** (webfont) loaded from CDN by the shared `Seo` component.
 - **Hydration rules** (every page is server-rendered, then hydrated; any difference makes React throw #418/#423 and re-render the page client-side):
   - FontAwesome: use `css/all.css`, never the `js/all.js` build — it rewrites `<i>` into `<svg>` before React hydrates.
   - Format Contentful dates only via `formatDate` (`src/utils/helpers.js`): it takes the date as entered, in UTC. Netlify builds in UTC, visitors are in Berlin, so timezone-dependent formatting renders different days on server and client.
   - No block elements inside `<p>` (markdown HTML from `childMarkdownRemark.html` is `<p>`s — wrap it in a `<div>`).
-- **SEO**: per-page `Head` exports, JSON-LD on home, custom sitemap plugin config in `gatsby-config.js`.
+- **SEO**: every page's `Head` export renders `<Seo>` (`src/components/seo.js`) — `lang`, title, description, canonical (or `noindex`), Open Graph/Twitter tags. Don't write head tags by hand.
+  - JSON-LD: `SportsTeam` + `WebSite` (home), `SportsEvent` (tournaments), `NewsArticle` (news), `BreadcrumbList` (rendered by `Layout` from its `bc` prop). Use the `JsonLd` component; the team entity is exported as `team`.
+  - Sitemap (`gatsby-config.js`) lists the pages Gatsby builds, minus `/users/*`; Contentful only supplies `lastmod`. `static/robots.txt` points to it and doesn't block `/users/` — those pages are `noindex` instead.
+  - `npm run check:seo` (after a build) fails on missing/duplicate titles, missing descriptions or canonicals, invalid JSON-LD, or a sitemap that doesn't match the indexable pages.
 - **Hosting**: Netlify (README) / also a GH-pages deploy script in `package.json`.
 
 ## Development
@@ -36,6 +39,7 @@ npm run build        # gatsby build
   - `CF_MGMT_TOKEN` (Contentful management token, used by `old_db/script.py`)
 - `gatsby-config.js` calls `require("dotenv").config()` on load, so a plain `npm run build`/`develop` picks up `.env` automatically.
 - Tests: `npm test` (Jest + Testing Library, jsdom). Firebase is mocked globally in `jest/setup.js` (in-memory Firestore in `jest/firestore-mock.js`), so tests never hit the real project — and don't prove the real SDK bundles; run `npm run build` for that. Babel presets live in `jest.config.js`, not `babel.config.js` (Gatsby would pick that up and drop `babel-preset-gatsby`).
+- SEO: `npm run build && npm run check:seo` (see SEO above).
 - Format with `npm run format` (Prettier).
 
 ## Browser testing (Turnierverwaltung)
@@ -70,6 +74,7 @@ src/lib/                firebase.js (app/auth/firestore clients) + Firestore acc
 src/utils/              small helpers
 src/**/*.test.js        Jest tests, next to the code they cover
 jest.config.js, jest/   Jest config, global firebase mocks, gatsby stub
+scripts/check-seo.mjs   post-build SEO check (`npm run check:seo`)
 static/                 icons, _redirects (Netlify), robots.txt
 docs/                   screenshots
 

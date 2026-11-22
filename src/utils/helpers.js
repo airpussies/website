@@ -25,3 +25,11 @@ export const formatDate = iso =>
     day: "numeric",
     timeZone: "UTC",
   }).format(new Date(iso.slice(0, 10)));
+
+// Plain-text meta description from markdown/HTML source: tags stripped,
+// whitespace collapsed, cut at a word boundary to ~155 chars.
+export const toDescription = (source, max = 155) => {
+  const text = source.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  if (text.length <= max) return text;
+  return text.slice(0, text.lastIndexOf(" ", max)) + "…";
+};

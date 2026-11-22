@@ -2,19 +2,11 @@ import React from "react"
 import Layout from "../components/layout";
 import {graphql} from "gatsby"
 import DefaultPage from "../components/defaultPage";
+import Seo from "../components/seo";
 
-export function Head({ location, params, data, pageContext }) {
-  return (
-    <>
-      <title>{`air pussies — ${data.contentfulPages.headline}`}</title>
-      <link rel="canonical" href={`https://www.airpussies.berlin${location.pathname}`} />
-      <meta name="twitter:url" content={`https://www.airpussies.berlin${location.pathname}`} />
-      <meta property="og:title" content={`air pussies — ${data.contentfulPages.headline}`} />
-      <meta property="og:url" content={`https://www.airpussies.berlin${location.pathname}`} />
-      <body className={'has-navbar-fixed-top'}></body>
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
-    </>
-  );
+export function Head({ location, data }) {
+  const page = data.contentfulPages;
+  return <Seo title={page.headline} description={page.body.childMarkdownRemark.excerpt} pathname={location.pathname}/>;
 }
 
 export default function Home({data}) {
@@ -43,6 +35,7 @@ export const pageQuery = graphql`
       body {
         childMarkdownRemark {
           html
+          excerpt(pruneLength: 155)
         }
       }
     }

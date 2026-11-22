@@ -12,7 +12,8 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "jest"
+    "test": "jest",
+    "check:seo": "node scripts/check-seo.mjs"
   },
   "dependencies": {
     "bulma": "0.9.4",
