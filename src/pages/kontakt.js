@@ -6,7 +6,7 @@ import Seo from "../components/seo";
 
 export function Head({ location, data }) {
   const page = data.contentfulPages;
-  return <Seo title={page.headline} description="Kontakt zu den air pussies, dem Ultimate-Frisbee-Team des TSV Berlin-Wedding 1862 e.V.: Ansprechpartner für Verein, Geschäftsstelle und Website." pathname={location.pathname}/>;
+  return <Seo title={page.headline} description="Kontakt zu den air pussies, dem Ultimate-Frisbee-Team des TSV Berlin-Wedding 1862 e.V.: Fragen zu Training und Probetraining, Ansprechpartner im Verein." pathname={location.pathname}/>;
 }
 
 export default function Home({data}) {
