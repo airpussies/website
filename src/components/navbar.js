@@ -21,16 +21,22 @@ function NavbarItem(props) {
   }
 }
 
+// a real <button> so keyboard and screen-reader users can open the mobile menu
+// (Bulma resets the button styling for .navbar-burger)
 function NavbarBurger(props) {
   return (
-    <div
+    <button
+      type="button"
       onClick={props.toggleMenu}
       className={`navbar-burger burger ${props.active ? "is-active" : ""}`}
+      aria-label="Menü"
+      aria-expanded={props.active}
+      aria-controls="navbar-menu"
     >
-      <span />
-      <span />
-      <span />
-    </div>
+      <span aria-hidden="true" />
+      <span aria-hidden="true" />
+      <span aria-hidden="true" />
+    </button>
   );
 }
 
@@ -84,7 +90,7 @@ function Navbar() {
             toggleMenu={toggleMenu}
           />
         </div>
-        <div className={`navbar-menu ${activeMenu ? "is-active" : ""}`}>
+        <div id="navbar-menu" className={`navbar-menu ${activeMenu ? "is-active" : ""}`}>
           <div className="navbar-end">
             {navItems}
             <Link
