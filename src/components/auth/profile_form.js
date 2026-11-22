@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
-import firebase from "gatsby-plugin-firebase";
+import {collection, getDocs} from "firebase/firestore";
+import {db} from "../../lib/firebase";
 import {UserContext} from "../../context/UserProvider";
 import {updateUserDocument} from "../../lib/firebase_user";
 
@@ -33,7 +34,7 @@ const ProfileForm = () => {
 
     useEffect(() => {
       (async () => {
-        const querySnapshot = await firebase.firestore().collection("teams").get()
+        const querySnapshot = await getDocs(collection(db, "teams"))
 
         const teams = querySnapshot.docs.map((doc) => {
           return {id: doc.id, data: doc.data()}

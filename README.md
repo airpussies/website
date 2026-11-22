@@ -10,10 +10,13 @@ contains the code that generates our website: Visit us at [https://airpussies.be
 This site makes use of the great [Contentful CMS](https://www.contentful.com/). To develop, you'll need
 
 * a `CONTENTFUL_ACCESS_TOKEN` to access our CMS content
-* nodejs (tested with version 14)
+* nodejs 20+ (tested with version 22)
 * [gatsby.js](https://www.gatsbyjs.com/docs/quick-start/) ([installation guide](https://www.gatsbyjs.com/docs/tutorial/part-0/#installation-guide))
 
 then run `gatsby develop`
+
+`npm test` runs the unit tests (Firebase is mocked). Changes to the Turnierverwaltung (login, Firestore) should also be
+checked in a browser against the real database — see the checklist in [AGENTS.md](./AGENTS.md#browser-testing-turnierverwaltung).
 
 ## tech stack
 

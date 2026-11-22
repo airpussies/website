@@ -31,7 +31,7 @@ const Turnierverwaltung = (props) => {
           <article className="message is-info">
             <div className="message-body">
               Die Turnierverwaltung steht nur registrierten Nutzern zur Verfügung.
-              Zur <Link to="/signup">Registrierung</Link>
+              Zur <Link to="/users/signup/">Registrierung</Link>
             </div>
           </article> :
           <div>

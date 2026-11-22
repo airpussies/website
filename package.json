@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-starter-hello-world",
+  "name": "website",
   "private": true,
-  "description": "A simplified bare-bones starter for Gatsby",
+  "description": "Website for airpussies.berlin",
   "version": "0.1.0",
   "license": "0BSD",
   "scripts": {
@@ -12,23 +12,20 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "jest"
   },
   "dependencies": {
-    "@emotion/core": "11.0.0",
     "bulma": "0.9.4",
-    "firebase": "8.10.1",
+    "dotenv": "^18.0.0",
+    "firebase": "^12.19.0",
     "gatsby": "^5.8.1",
     "gatsby-cli": "^5.8.0",
-    "gatsby-plugin-emotion": "^8.8.0",
-    "gatsby-plugin-firebase": "0.2.0-beta.4",
     "gatsby-plugin-image": "^3.8.0",
     "gatsby-plugin-manifest": "5.8.0",
     "gatsby-plugin-postcss": "6.8.0",
     "gatsby-plugin-sass": "^6.8.0",
     "gatsby-plugin-sharp": "^5.12.0",
     "gatsby-plugin-sitemap": "6.8.0",
-    "gatsby-plugin-typography": "^5.8.0",
     "gatsby-source-contentful": "^8.8.0",
     "gatsby-source-filesystem": "5.8.0",
     "gatsby-transformer-remark": "^6.8.0",
@@ -37,18 +34,24 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-head": "3.4.2",
-    "react-typography": "0.16.23",
     "sass": "^1.66.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.29.7",
+    "@babel/preset-react": "^7.29.7",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.7",
     "gh-pages": "5.0.0",
+    "jest": "^30.5.2",
+    "jest-environment-jsdom": "^30.5.2",
     "prettier": "2.8.4"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-hello-world"
+    "url": "https://github.com/airpussies/website"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/airpussies/website/issues"
   }
 }

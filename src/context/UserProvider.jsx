@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {generateUserDocument} from "../lib/firebase_user";
-import firebase from "gatsby-plugin-firebase";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "../lib/firebase";
 
 export const UserContext = React.createContext({user: null});
 
@@ -9,7 +10,7 @@ const UserProvider = ({children}) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((userAuth) => {
+    return onAuthStateChanged(auth, (userAuth) => {
       (async () => {
         const user = await generateUserDocument(userAuth);
         setUser(user);

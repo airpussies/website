@@ -1,5 +1,6 @@
 import React, {useState} from "react";
-import firebase from "gatsby-plugin-firebase";
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../../lib/firebase";
 import {Link, navigate} from "gatsby"
 
 const SignInForm = () => {
@@ -12,7 +13,7 @@ const SignInForm = () => {
       setError('');
       setEmail('');
       setPassword('');
-      firebase.auth().signInWithEmailAndPassword(email, password)
+      signInWithEmailAndPassword(auth, email, password)
         .then((data) => {
           console.log("success " + JSON.stringify(data.user), data);
           navigate("/")

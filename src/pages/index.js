@@ -16,13 +16,13 @@ export function Head({location, params, data, pageContext}) {
     "datePublished": data.contentfulPages.createdAt,
     "dateCreated": data.contentfulPages.createdAt,
     "dateModified": data.contentfulPages.updatedAt,
-    "description": "Startseite der air pussies, Ultimate Frisbee Team aus Berlin Wedding. (Anfänger-)Traning, Spielregeln und vieles mehr zur Teamsportart Ultimate."
+    "description": "Startseite der air pussies, Ultimate Frisbee Team aus Berlin Wedding. (Anfänger-)Training, Spielregeln und vieles mehr zur Teamsportart Ultimate."
   }, null, 2);
 
   return (
     <>
       <title>air pussies — Berlin Ultimate Frisbee </title>
-      <meta name="description" content="Startseite der air pussies, Ultimate Frisbee Team aus Berlin Wedding. (Anfänger-)Traning, Spielregeln und vieles mehr zur Teamsportart Ultimate."/>
+      <meta name="description" content="Startseite der air pussies, Ultimate Frisbee Team aus Berlin Wedding. (Anfänger-)Training, Spielregeln und vieles mehr zur Teamsportart Ultimate."/>
       <meta name={'keywords'} content={'air pussies, Berlin Wedding, Ultimate Frisbee, Sport Team, Training, Anfänger, Spielregeln'}/>
       <link rel="canonical" href="https://www.airpussies.berlin/" />
       <meta property="og:title" content="air pussies — Ultimate Frisbee Team aus Berlin Wedding"/>
