@@ -92,24 +92,16 @@ $primary-deep: darken($primary, 10%);
   font-size: $size-small;
 }
 
-// Was ist Ultimate?
-.page-ultimate {
-  .teaser {
-    max-width: 720px;
-    margin: 2rem auto 0;
-  }
-
-  // the rules are the page's only list: show them as numbered cards
-  .cms-body ul {
-    list-style: none;
-    margin: 1.5rem 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-    gap: 1rem;
-    counter-reset: rule;
-  }
-  .cms-body li {
-    counter-increment: rule;
+// a Markdown list as numbered cards
+@mixin numbered-cards($columns) {
+  list-style: none;
+  margin: 1.5rem 0;
+  display: grid;
+  grid-template-columns: $columns;
+  gap: 1rem;
+  counter-reset: card;
+  li {
+    counter-increment: card;
     position: relative;
     margin: 0;
     padding: 1rem 1rem 1rem 3.75rem;
@@ -117,8 +109,8 @@ $primary-deep: darken($primary, 10%);
     background: $primary-light;
     font-size: 1rem;
   }
-  .cms-body li::before {
-    content: counter(rule);
+  li::before {
+    content: counter(card);
     position: absolute;
     top: 1rem;
     left: 1rem;
@@ -130,6 +122,61 @@ $primary-deep: darken($primary, 10%);
     background: $primary;
     color: $white;
     font-weight: 700;
+  }
+}
+
+// Was ist Ultimate?
+.page-ultimate {
+  .teaser {
+    max-width: 720px;
+    margin: 2rem auto 0;
+  }
+  // the rules are the page's only list
+  .cms-body ul {
+    @include numbered-cards(repeat(auto-fit, minmax(17rem, 1fr)));
+  }
+}
+
+// Mitspielen
+.page-mitspielen {
+  // training times: one Markdown quote, each paragraph (time + place) a card
+  .cms-body blockquote {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    p {
+      margin: 0;
+      padding: 1rem;
+      border-radius: $radius;
+      background: $white;
+      font-size: 1rem;
+    }
+  }
+  // steps to the first training (the page's only ordered list)
+  .cms-body ol {
+    @include numbered-cards(1fr);
+  }
+  // what to bring (the page's only bullet list): a checklist
+  .cms-body ul {
+    list-style: none;
+    margin-left: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 0.5rem 2rem;
+    li {
+      position: relative;
+      margin: 0;
+      padding-left: 1.75em;
+    }
+    li::before {
+      content: "\f00c"; // FontAwesome check
+      position: absolute;
+      left: 0;
+      color: $primary;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+    }
   }
 }
 
