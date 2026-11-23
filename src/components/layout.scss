@@ -58,3 +58,136 @@ section p > a {
   background: findLightColor($green);
   text-decoration: underline;
 }
+
+// Bulma's $primary-dark is lighter than this $primary, so darken() it is
+$primary-deep: darken($primary, 10%);
+
+// CMS pages (DefaultPage)
+.cms-body {
+  h2::after {
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 3px;
+    margin-top: 0.5rem;
+    border-radius: 2px;
+    background: $primary;
+  }
+  h3 {
+    color: $primary-deep;
+  }
+  li::marker {
+    color: $primary;
+  }
+  // a Markdown "> quote" in Contentful becomes a highlighted box
+  blockquote {
+    border-left-color: $primary;
+    border-radius: 0 $radius-large $radius-large 0;
+    background: $primary-light;
+  }
+}
+
+.teaser figcaption {
+  color: $grey;
+  font-size: $size-small;
+}
+
+// Was ist Ultimate?
+.page-ultimate {
+  .teaser {
+    max-width: 720px;
+    margin: 2rem auto 0;
+  }
+
+  // the rules are the page's only list: show them as numbered cards
+  .cms-body ul {
+    list-style: none;
+    margin: 1.5rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1rem;
+    counter-reset: rule;
+  }
+  .cms-body li {
+    counter-increment: rule;
+    position: relative;
+    margin: 0;
+    padding: 1rem 1rem 1rem 3.75rem;
+    border-radius: $radius-large;
+    background: $primary-light;
+    font-size: 1rem;
+  }
+  .cms-body li::before {
+    content: counter(rule);
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: $primary;
+    color: $white;
+    font-weight: 700;
+  }
+}
+
+.facts {
+  display: grid;
+  // 9rem keeps two tiles per row on a 390px phone
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.fact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem 0.75rem;
+  border-radius: $radius-large;
+  background: $primary-light;
+  text-align: center;
+  .icon {
+    color: $primary;
+    margin-bottom: 0.25rem;
+  }
+  .fact-value {
+    color: $primary-deep;
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  .fact-label {
+    margin-top: 0.25rem;
+    color: $grey-dark;
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+}
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, darken($primary, 6%), darken($primary, 16%));
+  color: $white;
+  > div {
+    flex: 1 1 20rem;
+  }
+  .title {
+    color: $white;
+    margin-bottom: 0.5rem;
+  }
+  p {
+    margin: 0;
+  }
+  .button {
+    color: $primary-deep;
+    font-weight: 600;
+  }
+}
