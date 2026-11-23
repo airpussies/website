@@ -21,7 +21,7 @@ export const CreateEvent = (props) => {
 
   return (
     <>
-      <h2>CreateEvent</h2>
+      <h2 className="title is-4">CreateEvent</h2>
       <button onClick={handleOnClick}>CreateEvent</button>
     </>
   );
@@ -148,7 +148,7 @@ export const Event = (props) => {
         .sort(([t1, v1],[t2, v2])=> t1.localeCompare(t2))
         .map(([team, value], i) =>
         <div key={team} className={"box is-full"}>
-          <h4 className="is-4">{team}</h4>
+          <h4 className="title is-5">{team}</h4>
           <div className="field is-grouped is-grouped-multiline">
             <div className="control">
               <div className="tags has-addons">

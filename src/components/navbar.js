@@ -5,22 +5,6 @@ import { UserContext } from "../context/UserProvider";
 import { signOut } from "firebase/auth";
 import { auth } from "../lib/firebase";
 
-function NavbarItem(props) {
-  if (props.hide) {
-    return (
-      <></>
-    );
-  } else {
-    return (
-      <Link
-        className={"navbar-item " + (props.active ? "is-active" : "not-active")}
-        to={props.page} rel={props.page.startsWith("/users/") ? "nofollow" : null}>
-        {props.pagename}
-      </Link>
-    );
-  }
-}
-
 // a real <button> so keyboard and screen-reader users can open the mobile menu
 // (Bulma resets the button styling for .navbar-burger)
 function NavbarBurger(props) {
@@ -45,60 +29,47 @@ function Navbar() {
   const [activeMenu, setActiveMenu] = useState(false);
   const isLoggedIn = user !== undefined;
 
-  const toggleMenu = () => {
-    setActiveMenu(!activeMenu);
-  };
-
   const logout = async (event) => {
     event.preventDefault();
-    console.log("logging out");
     await signOut(auth);
     navigate("/");
   };
 
   const items = [
-    { label: "Home", path: "/" },
     { label: "News", path: "/news/" },
     { label: "Turniere", path: "/turniere/" },
     { label: "Was ist Ultimate?", path: "/was_ist_ultimate/" },
-    { label: "Mitspielen", path: "/mitspielen/" },
     { label: "Kontakt", path: "/kontakt/" },
-    { label: "Login", path: "/users/signin/", hide: isLoggedIn },
-    { label: "Profil", path: "/users/profile/", hide: !isLoggedIn }
+    isLoggedIn ? { label: "Profil", path: "/users/profile/" } : { label: "Login", path: "/users/signin/" },
   ];
 
-  const navItems = items.map((entry, i) => {
-    return <NavbarItem
-      key={i}
-      page={entry.path}
-      pagename={entry.label}
-      hide={entry.hide}
-      onClick={entry.onClick}
-    />;
-  });
-
   return (
-    <nav className="navbar is-fixed-top has-shadow is-primary">
+    <nav className="navbar is-fixed-top has-shadow is-site" aria-label="Hauptnavigation">
       <div className="container">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/">
-            <img src={logo} height="28" width="28" alt="logo" style={{ marginBottom: "0" }} />
-            &nbsp;<span className="is-4">air pussies online</span>
+            <img src={logo} height="28" width="28" alt="" style={{ marginBottom: "0" }} />
+            air pussies
           </Link>
-          <NavbarBurger
-            active={activeMenu}
-            toggleMenu={toggleMenu}
-          />
+          <NavbarBurger active={activeMenu} toggleMenu={() => setActiveMenu(!activeMenu)} />
         </div>
         <div id="navbar-menu" className={`navbar-menu ${activeMenu ? "is-active" : ""}`}>
           <div className="navbar-end">
-            {navItems}
-            <Link
-              style={!isLoggedIn ? { display: "none" } : {}}
-              className="navbar-item"
-              to="/"
-              onClick={(event) => logout(event)}>Logout
-            </Link>
+            {items.map(entry => (
+              <Link
+                key={entry.path}
+                className="navbar-item"
+                activeClassName="is-active"
+                partiallyActive={true}
+                to={entry.path}
+                rel={entry.path.startsWith("/users/") ? "nofollow" : null}>
+                {entry.label}
+              </Link>
+            ))}
+            {isLoggedIn && <a className="navbar-item" href="/" onClick={logout}>Logout</a>}
+            <div className="navbar-item">
+              <Link className="button is-primary" to="/mitspielen/">Mitspielen</Link>
+            </div>
           </div>
         </div>
       </div>

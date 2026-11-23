@@ -33,3 +33,15 @@ export const toDescription = (source, max = 155) => {
   if (text.length <= max) return text;
   return text.slice(0, text.lastIndexOf(" ", max)) + "…";
 };
+
+// Not Intl: short month names differ between Node's and the browser's ICU data ("Mär" vs "März"),
+// which would break hydration.
+const MONTHS = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+
+// date badge on tournament cards: { day: "7", month: "Nov" }, the calendar date as entered
+export const dayAndMonth = iso => {
+  const date = new Date(iso.slice(0, 10));
+  return { day: String(date.getUTCDate()), month: MONTHS[date.getUTCMonth()] };
+};
+
+export const FIELD_TYPES = { grass: "Rasen", indoor: "Halle", sand: "Beach", "artificial turf": "Kunstrasen" };

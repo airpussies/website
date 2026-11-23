@@ -25,7 +25,10 @@ export default function NewsByYears({data}) {
       {label: "Home", href: '/'},
       {label: "News", href: '#'},
     ]}>
-      <h1 className="is-1 title">Berichte und Neuigkeiten</h1>
+      <header className="page-header">
+        <h1 className="title is-1">News</h1>
+        <p className="subtitle">Berichte und Neuigkeiten: Turniere, Trainingslager und Teamleben.</p>
+      </header>
       {nodes.groups.sort().reverse().map((year, i) =>
         <EntriesByYear type={"news"} year={year} items={nodes.entries[year]} key={i}/>
       )}
@@ -42,6 +45,14 @@ export const pageQuery = graphql`query {
         slug
         headline
         author
+        teaser {
+          gatsbyImageData(layout: CONSTRAINED, width: 640, aspectRatio: 1.7778, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
+        }
+        body {
+          childMarkdownRemark {
+            excerpt(pruneLength: 140)
+          }
+        }
       }
     }
   }
