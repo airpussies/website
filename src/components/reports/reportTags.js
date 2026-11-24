@@ -1,42 +1,15 @@
 import React from "react";
 import Division from "./division";
-import {formatDate} from "../../utils/helpers";
+import {FIELD_TYPES, formatDate} from "../../utils/helpers";
 
-const ReportTags = (props) => {
-  const date = props.date;
-  const location = props.location;
-  const fieldType = props.fieldType;
-  const division = props.division;
-
-  const formattedDate = formatDate(date);
-
-  return (
-    <div className="field is-grouped is-grouped-multiline">
-      <div className="control">
-        <div className="tags has-addons">
-          <span className="tag is-dark">Datum</span>
-          <span className="tag is-primary">{formattedDate}</span>
-        </div>
-      </div>
-      <div className="control">
-        <div className="tags has-addons">
-          <span className="tag is-dark">Ort</span>
-          <span className="tag is-primary">{location}</span>
-        </div>
-      </div>
-      <div className="control">
-        <div className="tags has-addons">
-          <span className="tag is-dark">Untergrund</span>
-          <span className="tag is-primary">{fieldType}</span>
-        </div>
-      </div>
-      <div className="control">
-        <div className="tags has-addons">
-          <span className="tag is-dark">Division</span>
-          <span className="tag is-primary"><Division division={division}/>&nbsp;{division}</span>
-        </div>
-      </div>
-    </div>);
-};
+// meta line under a tournament headline
+const ReportTags = ({date, location, fieldType, division}) => (
+  <p className="meta-row">
+    <span><span className="icon"><i className="far fa-calendar-alt" aria-hidden="true"/></span>{formatDate(date)}</span>
+    <span><span className="icon"><i className="fas fa-map-marker-alt" aria-hidden="true"/></span>{location}</span>
+    <span><span className="icon"><i className="fas fa-seedling" aria-hidden="true"/></span>{FIELD_TYPES[fieldType] || fieldType}</span>
+    <span><span className="icon"><i className="fas fa-users" aria-hidden="true"/></span><Division division={division}/>&nbsp;{division}</span>
+  </p>
+);
 
 export default ReportTags;

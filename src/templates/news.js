@@ -48,9 +48,9 @@ class NewsTemplate extends React.Component {
     let maybeTeaser;
     if (teaser !== null) {
       const dynamicImage = getImage(teaser);
-      maybeTeaser = <figure className={"image"}>
-        <GatsbyImage image={dynamicImage} alt={teaser.title} title={teaser.title}/>
-        <figcaption><em>{teaser.title}</em> {teaser.description}</figcaption>
+      maybeTeaser = <figure className="image teaser article-teaser">
+        <GatsbyImage image={dynamicImage} alt={teaser.description || teaser.title || ""}/>
+        {teaser.description && <figcaption>{teaser.description}</figcaption>}
       </figure>;
     }
 
@@ -66,36 +66,18 @@ class NewsTemplate extends React.Component {
         <article>
           <h1 className="is-1 title">{headline}</h1>
 
-          <div className="field is-grouped is-grouped-multiline">
-
-            <div className="control">
-              <div className="tags are-medium has-addons">
-                <span className="tag">von</span>
-                <span className="tag is-success is-light">{author}</span>
-              </div>
-            </div>
-
-            <div className="control">
-              <div className="tags are-medium has-addons">
-                <span className="tag">veröffentlicht am</span>
-                <span className="tag is-success is-light">{formattedDate}</span>
-              </div>
-            </div>
-
-            <div className="control">
-              <div className="tags are-medium has-addons">
-                <span className="tag">Lesezeit </span>
-                <span className="tag is-success is-light">{timeToRead} {timeToRead > 1 ? 'Minuten' : 'Minute'}</span>
-              </div>
-            </div>
-          </div>
+          <p className="meta-row">
+            <span><span className="icon"><i className="fas fa-user" aria-hidden="true"/></span>{author}</span>
+            <span><span className="icon"><i className="far fa-calendar-alt" aria-hidden="true"/></span>{formattedDate}</span>
+            <span><span className="icon"><i className="far fa-clock" aria-hidden="true"/></span>{timeToRead} {timeToRead > 1 ? 'Minuten' : 'Minute'} Lesezeit</span>
+          </p>
 
           {maybeTeaser}
 
           <section className={"pt-5"}>
             <div className="columns is-centered">
-              <div className="column is-four-fifths-mobile is-two-thirds-tablet">
-                <div dangerouslySetInnerHTML={{__html: body.childMarkdownRemark.html}}/>
+              <div className="column is-full-mobile is-four-fifths-tablet is-three-quarters-desktop">
+                <div className="content cms-body" dangerouslySetInnerHTML={{__html: body.childMarkdownRemark.html}}/>
               </div>
             </div>
           </section>

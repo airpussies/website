@@ -5,9 +5,9 @@ import {graphql} from "gatsby";
 import ReportTags from "../components/reports/reportTags";
 import Turnierverwaltung from "../components/tv/turnierverwaltung";
 import Seo, {JsonLd, SITE_URL, team} from "../components/seo";
-import {formatDate} from "../utils/helpers";
+import {FIELD_TYPES, formatDate} from "../utils/helpers";
 
-const FIELD_TYPES = {grass: "Rasen", indoor: "Halle", sand: "Beach", "artificial turf": "Kunstrasen"};
+
 
 export function Head({ location, data }) {
   const {title, year, date, fieldType, division, location: place} = data.contentfulTurnierbericht;
@@ -56,19 +56,17 @@ class ReportTemplate extends React.Component {
 
     let maybeReport;
     if (null !== report && null !== report.childMarkdownRemark && null !== report.childMarkdownRemark.html && report.childMarkdownRemark.html !== '') {
-      maybeReport = <section className={"box pt-5 mt-5"}>
-        <h3 className="subtitle is-3">Turnierbericht</h3>
-        <div dangerouslySetInnerHTML={{__html: report.childMarkdownRemark.html}}/>
+      maybeReport = <section className="box">
+        <h2 className="title is-4">Turnierbericht</h2>
+        <div className="content" dangerouslySetInnerHTML={{__html: report.childMarkdownRemark.html}}/>
       </section>;
     }
     let maybeDescription;
     if (description !== null && description.childMarkdownRemark.html !== '') {
-      maybeDescription = <section className={"pt-5"}>
-        <div className="box column is-full">
-          <h3 className="is-3">Turnierbeschreibung</h3>
-          {/* div, not p: the markdown HTML is itself <p>s, and <p> in <p> is invalid HTML that breaks hydration */}
-          <div dangerouslySetInnerHTML={{__html: description.childMarkdownRemark.html}}/>
-        </div>
+      maybeDescription = <section className="box">
+        <h2 className="title is-4">Turnierbeschreibung</h2>
+        {/* div, not p: the markdown HTML is itself <p>s, and <p> in <p> is invalid HTML that breaks hydration */}
+        <div className="content" dangerouslySetInnerHTML={{__html: description.childMarkdownRemark.html}}/>
       </section>;
     }
     return (
@@ -83,7 +81,7 @@ class ReportTemplate extends React.Component {
           {maybeDescription}
           {maybeReport}
         </div>
-        <h2 className="is-2">Turnierverwaltung</h2>
+        <h2 className="title is-3 mt-6">Turnierverwaltung</h2>
         <Turnierverwaltung event_id={`${year}_${slug}`}/>
       </Layout>
     );

@@ -1,4 +1,4 @@
-import { count, formatDate, removeKeyFromObj, toDescription } from "./helpers"
+import { count, dayAndMonth, formatDate, removeKeyFromObj, toDescription } from "./helpers"
 
 describe("count", () => {
   it("counts the occurrences of a term", () => {
@@ -41,5 +41,12 @@ describe("toDescription", () => {
     const long = toDescription("<p>" + "wort ".repeat(50) + "</p>")
     expect(long.length).toBeLessThanOrEqual(156)
     expect(long.endsWith("wort…")).toBe(true)
+  })
+})
+
+describe("dayAndMonth", () => {
+  it("splits the calendar date as entered into day and short month", () => {
+    expect(dayAndMonth("2026-11-07T00:00+02:00")).toEqual({ day: "7", month: "Nov" })
+    expect(dayAndMonth("2026-03-14T23:00+01:00")).toEqual({ day: "14", month: "Mär" })
   })
 })

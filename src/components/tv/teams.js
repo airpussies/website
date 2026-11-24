@@ -44,7 +44,7 @@ export const CreateTeam = (props) => {
 
   return (props.missingTeams.length > 0 ? <div className={"pt-5"}>
       <div className={"box is-full"}>
-        <h4 className={"is-4"}>Eines deiner Teams ist nicht dabei?</h4>
+        <h4 className="title is-5">Eines deiner Teams ist nicht dabei?</h4>
         <div className="field">
           <div className="control is-horizontal">
             {teamsPicker}

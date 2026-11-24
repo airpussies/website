@@ -24,7 +24,7 @@ export default function DefaultPage({data, intro, outro}) {
       <section className={"pt-5"}>
         <div className="columns is-centered">
           <div className="column is-full-mobile is-four-fifths-desktop">
-            <div className="cms-body" dangerouslySetInnerHTML={{
+            <div className="content cms-body" dangerouslySetInnerHTML={{
               __html: page.body.childMarkdownRemark.html
             }} />
             {outro}
